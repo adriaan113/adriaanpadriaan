@@ -10,6 +10,8 @@ import Footer from './components/MyFooter.vue'
 import VueKinesis from 'vue-kinesis'
 Vue.use(VueKinesis)
 
+import 'animate.css';
+
 
 
 Vue.component('MyHeader', Header);
