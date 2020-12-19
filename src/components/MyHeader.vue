@@ -1,47 +1,36 @@
 <template>
     <header class="header-container">
 
+    <Slide right>
+      <a id="home" href="#">
+        <span>home</span>
+        <span>work</span>
+        <span>info</span>
+      </a>
+    </Slide>
 
-      <!-- <div id="nav-menu">
-        <button @click="toggle">toggle</button>
-        <Drawer @close="toggle" align="right" :closeable="true" :maskClosable="true">
-          <div v-if="open">
-            <ul>
-              <li><a>work</a></li>
-              <li><a>info</a></li>
-            </ul>
-          </div>
-        </Drawer>
-      </div> -->
 
     </header>
 </template>
 
+
+
 <script>
-// import Drawer from "vue-simple-drawer"
 
-
-// export default {
+  import { Slide } from 'vue-burger-menu'  // import the CSS transitions you wish to use, in this case we are using `Slide`
   
-//   name: "nav-menu",
-//   data() {
-//     return {
-//       open: false,
-//     }
-//   },
-//   components: {
-//     Drawer
-//   },
-//   methods: {
-//     toggle() {
-//       this.open = !this.open
-//     }
-//   }
-// }
+  export default {
+      components: {
+          Slide // Register your component
+      }
+  }
     
 </script>
 
 <style lang="scss" scoped>
 
+// header{
+//   background-color: burlywood;
+// }
 
 </style>
