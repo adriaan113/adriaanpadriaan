@@ -1,6 +1,9 @@
 <template>
     <aside class="intro-text">
-        <kinesis-container class="name" tag="div">
+        <div class="sticker">
+            <h4>fotograaf</h4>
+        </div> 
+        <!-- <kinesis-container class="name" tag="div">
             <kinesis-element :strength="10" tag="span" type="rotate" axis="x">
                 <h1>A</h1>
             </kinesis-element>
@@ -19,9 +22,9 @@
             <kinesis-element :strength="15" tag="span" type="rotate">
                 <h1>n</h1>
             </kinesis-element>        
-        </kinesis-container>
-        <h3>fotograaf(dit kan dan mooi de hele tijd verspringen</h3>
-        <div class="arrow">   
+        </kinesis-container> --> -->
+
+        <!-- <div class="arrow">   
             <a href="#intro-gal">
                 <kinesis-container>
                     <kinesis-element :strength="3" type="scaleY" :maxY="5"> 
@@ -31,7 +34,7 @@
                     </kinesis-element> 
                 </kinesis-container>  
             </a>    
-        </div>
+        </div> -->
     </aside>
 </template>
 
@@ -45,19 +48,45 @@ export default {
 <style lang="scss" scoped>
 aside{
    background-color: aquamarine; 
-   height: 100vh;
+//    height: 100vh;
    display: flex;
    flex-flow: column nowrap;
    align-items: center;
    justify-content: start;
    width: 100%;
+   position: relative;
+   .sticker{
+       background-color: yellow;
+       border-radius: 50%;
+       width: 70px;
+       height: 70px;
+       display:flex;
+       justify-content: center;
+       align-items: center;
+       position: absolute;
+       top: 75%;
+       left: 2%;
+       transform: rotate(-30deg);
+       z-index: 999;
+       h4{
+           font-size: .8rem;
+       }
+   }
    .name{
        margin: 0 auto;
        font-size: 15vw;
        display: flex;
    }
+   h1,
+   h2{
+       margin: .5rem 0;
+   }
    h3{
        margin: 2rem;
+   }
+   .arrow{
+       display: none;
+       margin-top: 4rem;
    }
    
 }

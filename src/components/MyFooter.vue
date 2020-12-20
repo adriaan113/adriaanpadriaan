@@ -2,9 +2,8 @@
     <footer>
         <div class="footer-container">
             <small>Copyright &copy; 2019</small>
-            <small>Sarah Louise Lancelin</small>
-            <small>All rights reserved</small>
-            <small><span>Designed by </span>Sarah Louise Lancelin</small>
+            <small>Adriaan van der Ploeg</small>
+            <small><span>Designed by </span>Adriaan himself!</small>
             <small><span>Coded by </span>Adriaan van der Ploeg</small>
         </div>
     </footer>
@@ -19,5 +18,10 @@
 
 footer{
     background-color: tomato;
+    margin-top: 100%;
+    width: 100%;
+    small{
+        display: block;
+    }
 }
 </style>
