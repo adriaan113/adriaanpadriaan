@@ -24,11 +24,11 @@
         </kinesis-container>
       </div>
 
-    <Slide right width="300">
-      <a id="home" href="#">
-        <span>home</span>
-        <span>work</span>
-        <span>info</span>
+    <Slide right width="300" closeOnNavigation>
+      <a id="home" href="#" @click="menuItems">
+        <span><a>home</a></span>
+        <span><a>work</a></span>
+        <span><a>info</a></span>
       </a>
     </Slide>
 
@@ -45,8 +45,14 @@
   export default {
       components: {
           Slide // Register your component
+      },
+      methods: {
+          menuItems: function(e){
+              console.log(e.target.textContent);
+              this.$emit('item',e);
+          }
+        }
       }
-  }
     
 </script>
 
