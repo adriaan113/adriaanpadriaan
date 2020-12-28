@@ -1,13 +1,15 @@
 <template>
   <div id="app">
 
-    <my-header></my-header>
+    <my-header @item="showContent"></my-header>
 
-    <my-aside></my-aside>
+    <!-- <my-aside></my-aside> -->
 
-    <intro-gal v-if="true"></intro-gal>
+    <intro-gal @work="showMore" v-if="showIntro"></intro-gal>
+  
+    <info v-if="showInfo"></info>
 
-    <info v-else></info>
+    <work v-if="showWork"></work>
 
     <my-footer></my-footer>
 
@@ -16,23 +18,72 @@
 
 <script>
 import IntroGal from './components/IntroGal.vue'
-import MyAside from './components/MyAside.vue'
+// import MyAside from './components/MyAside.vue'
 import MyFooter from './components/MyFooter.vue'
 import myHeader from './components/MyHeader.vue'
+import Work from './components/Work.vue'
 
 // import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
+  data(){
+    return {
+      showIntro: true,
+      showInfo: false,
+      showWork: false,
+    }
+    
+  },
+  
   components: {
     myHeader,
-    MyAside,
+    // MyAside,
     IntroGal,
     MyFooter,
+    Work,
     
   },
   methods:{
-   
+    showContent: function(e){
+      // console.log(e.target.textContent);
+      if(e.target.textContent === 'home'){
+        this.showIntro = true;
+        this.showWork = false;
+        this.showInfo = false;
+      }else if(e.target.textContent === 'work'){
+        // console.log('dit wordt de work page');
+        this.showIntro = false;
+        this.showWork = true;
+        this.showInfo = false;
+
+      }else if(e.target.textContent === 'info'){
+        this.showIntro = false;
+        this.showWork = false;
+        this.showInfo = true;
+      }
+    },
+    // irregularText: function(){
+    //         const ctaText = document.querySelector('.cta');
+    //         const string = ctaText.textContent;
+    //         ctaText.innerHTML = '';
+    //         string.split('').forEach(function(e){
+    //             const newCtaText = document.createElement('H2');
+    //             newCtaText.classList.add('cta');
+    //             newCtaText.style.display = 'inline';
+    //             // newCtaText.style.color = "#"+((1<<24)*Math.random()|0).toString(16)
+    //             newCtaText.style.fontSize = (Math.random() * (36 - 30) + 20) + 'px';
+    //             // newCtaText.style.transform = `rotate(${Math.floor(Math.random() * 50)}deg)`;
+    //             newCtaText.innerHTML = e;
+    //             ctaText.appendChild(newCtaText);
+    //         });
+    //     }
+    showMore: function(){
+        this.showIntro = false;
+        this.showWork = true;
+        this.showInfo = false;
+
+    }
   }
 }
 </script>
@@ -46,6 +97,13 @@ html{
   overflow-x: hidden;
   width: 100%;
   height: 100%; 
+  margin: 0;
+  padding: 0;
+  }
+
+  body{
+    min-height: 100vh;
+    box-sizing: border-box;
   }
 
 #app {
@@ -59,7 +117,7 @@ html{
   font-family: 'Catamaran', sans-serif;
   text-align: center;
   font-weight: 100;
-  margin-top: 60px;
+  margin-top: 0;
   
 
 
@@ -95,5 +153,14 @@ html{
     width: 5px !important;
   }
   }
+
+   .bm-burger-button {
+      // position: absolute;
+      width: 36px;
+      height: 30px;
+      left: 16px;
+      top: 16px;
+      cursor: pointer;
+    }
 
 </style>

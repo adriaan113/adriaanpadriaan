@@ -11,7 +11,7 @@
                 </a>    
             </li>
         </ul>
-        <div class="cta" @click="test"><h2>Maar nog veel meer!</h2></div>
+            <div class="cta" @click="showWork"><h2><a href="#">Maar nog veel meer!</a></h2></div>
     </div> 
 </template>
 
@@ -48,20 +48,24 @@ export default {
         hoverName:function(person){
             person.show = !person.show;
         },
-        test: function(){
-            const ctaText = document.querySelector('.cta');
-            const string = ctaText.textContent;
-            ctaText.innerHTML = '';
-            string.split('').forEach(function(e){
-                const newCtaText = document.createElement('H2');
-                newCtaText.classList.add('cta');
-                newCtaText.style.display = 'inline';
-                // newCtaText.style.color = "#"+((1<<24)*Math.random()|0).toString(16)
-                newCtaText.style.fontSize = (Math.random() * (36 - 30) + 20) + 'px';
-                // newCtaText.style.transform = `rotate(${Math.floor(Math.random() * 50)}deg)`;
-                newCtaText.innerHTML = e;
-                ctaText.appendChild(newCtaText);
-            });
+        // test: function(){
+        //     const ctaText = document.querySelector('.cta');
+        //     const string = ctaText.textContent;
+        //     ctaText.innerHTML = '';
+        //     string.split('').forEach(function(e){
+        //         const newCtaText = document.createElement('H2');
+        //         newCtaText.classList.add('cta');
+        //         newCtaText.style.display = 'inline';
+        //         // newCtaText.style.color = "#"+((1<<24)*Math.random()|0).toString(16)
+        //         newCtaText.style.fontSize = (Math.random() * (36 - 30) + 20) + 'px';
+        //         // newCtaText.style.transform = `rotate(${Math.floor(Math.random() * 50)}deg)`;
+        //         newCtaText.innerHTML = e;
+        //         ctaText.appendChild(newCtaText);
+        //     });
+        // }
+        showWork: function(){
+        //    this.$root.$emit('hoi vanuit introGal');
+            this.$emit('work');
         }
     }
 }

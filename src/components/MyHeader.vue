@@ -1,7 +1,8 @@
 <template>
     <header class="header-container">
 
-      <div> 
+    <div id="nav" :class="{sticky:active}">
+      <div id="nav-container" :class="toggleNavClass()"> 
         <kinesis-container class="name" tag="div">
             <kinesis-element :strength="10" tag="span" type="rotate" axis="x">
                 <h1>A</h1>
@@ -32,7 +33,7 @@
       </a>
     </Slide>
 
-
+</div>
     </header>
 </template>
 
@@ -40,17 +41,40 @@
 
 <script>
 
-  import { Slide } from 'vue-burger-menu'  // import the CSS transitions you wish to use, in this case we are using `Slide`
+  import { Slide } from 'vue-burger-menu' 
+
   
   export default {
       components: {
-          Slide // Register your component
+          Slide,
+      },
+      data(){
+          return{
+              active: false
+          }
       },
       methods: {
           menuItems: function(e){
-              console.log(e.target.textContent);
-              this.$emit('item',e);
-          }
+            console.log(e.target.textContent);
+            this.$emit('item',e);
+          },
+          toggleNavClass: function(){
+            if(this.active == false){
+                return 'nav'
+            }else{
+                return 'sticky-nav'
+            }   
+        }
+    },
+        mounted(){
+            window.document.onscroll = () => {
+                let navBar = document.getElementById('nav');
+                if(window.scrollY > navBar.offsetTop + 100){
+                    this.active = true;
+                }else{
+                    this.active = false;
+        }
+    }
         }
       }
     
@@ -59,15 +83,21 @@
 <style lang="scss" scoped>
 
 .header-container{
-  background-color: burlywood;
-  display: flex;
-  flex-flow: row nowrap;
+    background-color: burlywood;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+//   align-items: flex-end;   
+    align-items: center;
+    margin-bottom: 4rem;
 }
+
 
 .name{
        margin: 0 auto;
-       font-size: 15vw;
+       font-size: 8vw;
        display: flex;
+       justify-content: center;
    }
    h1,
    h2{
@@ -76,5 +106,42 @@
    h3{
        margin: 2rem;
    }
+
+
+   .nav {
+       .name{
+        transition: .5s;
+       }
+}
+
+.sticky-nav{
+  transition: .5s;
+  //padding: 20px;
+}
+
+#nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #55acee;
+//   position: fixed;
+  top: 0;
+}
+
+/* have to add the ID nav (#nav) otherwise the backgrnd color won't change as the previous background color is set in an ID and ID trumps class notation */
+#nav.sticky{
+  transition: 150ms;
+  background-color:  #ccd6dd;
+  position: fixed;
+  justify-content: flex-start;
+  height: 60px;
+  z-index: 999;
+    .name{
+        transition: .3s;
+        font-size: 1rem;
+        margin-left: 1.5rem;
+        
+    }
+  }
 
 </style>
