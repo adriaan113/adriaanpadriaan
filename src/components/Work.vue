@@ -4,7 +4,14 @@
             <li v-for="person in work" :key="person.name">
                 <p class="job">{{person.job}}</p>
                 <h2 class="name" @click="showMeStory(person)">{{person.name}}</h2>
-                <img :src="person.img" alt="" @click="showMeStory(person)">
+                <carousel :per-page="1" :paginationSize="20" :paginationPadding="5">
+                    <slide>
+                        <img :src="person.img" alt="" @click="showMeStory(person)">
+                    </slide>
+                    <slide>
+                        <img :src="person.img" alt="" @click="showMeStory(person)">
+                    </slide>
+                </carousel>
                 <p class="story animate__animated" :class="{animate__fadeInDown: person.showStory}" v-show="person.showStory">{{person.story}}</p>
             </li>
       </ul>
@@ -15,9 +22,13 @@
 // :class="{bigger: person.showStory}"
 
 <script>
-
+import { Carousel, Slide } from 'vue-carousel';
 
 export default {
+    components: {
+    Carousel,
+    Slide
+  },
   data() {
     return {
         work:[
@@ -65,7 +76,7 @@ export default {
         },
         makeBigger: function(person){
             console.log(person); 
-        }
+        },
     },
  }
 </script>
@@ -89,9 +100,10 @@ export default {
             .name{
                 // margin-bottom: -30px;
                 position: relative;
-                top: 80px;
+                top: 70px;
                 font-size: 2.5rem;
                 cursor: pointer;
+                z-index: 1;
 
             }
             .job{
@@ -102,7 +114,7 @@ export default {
             }
             img{
                 width: 100%;
-                margin: 1rem;
+                // margin: 1rem;
                 cursor: pointer;
             }
             .story{
@@ -115,6 +127,12 @@ export default {
             }
         }
     }
+}
+
+.VueCarousel-slide {
+visibility: visible;
+flex-basis: 100%;
+width: 100%;
 }
 
 // .bigger{
