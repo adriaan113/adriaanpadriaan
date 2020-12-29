@@ -5,13 +5,21 @@
             <li class="intro-gallery--item" v-for="person in persons" :key="person.name">
                 <a href="">
                     <p @mouseover="hoverName(person)" @mouseleave="person.show=false">{{person.name}}</p>
-                    <div v-if="person.show" class="animate__animated" :class="person.animate">
-                        <img :src="person.img" alt="" class="hover-img" :style="{top:person.top, left:person.left}">
-                    </div>
                 </a>    
+                <div v-if="person.show" class="animate__animated" :class="person.animate">
+                        <img :src="person.img" alt="" class="hover-img" :style="{top:person.top, left:person.left}">
+                </div>
             </li>
         </ul>
-            <div class="cta" @click="showWork"><h2><a href="#">Maar nog veel meer!</a></h2></div>
+            <div class="cta" @click="showWork">
+                <h2>
+                    <a href="#">      
+                        <svg width="70" height="74" viewBox="0 40 146 74" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 3l70 68 70-68" stroke="#1212d4" stroke-width="6" fill="none" fill-rule="evenodd" stroke-linejoin="bevel"/>
+                        </svg>
+                    </a>
+                </h2>
+            </div>
     </div> 
 </template>
 
@@ -21,25 +29,29 @@ export default {
         return{
             persons:[
                 {
-                    name: 'john de wolf',
+                    name: 'John de Wolf',
                     img: require('../assets/john-de-wolf.jpg'),
                     show: false,
                     animate: 'animate__bounceInLeft',
-                    top: '30px',
+                    top: '-40px',
                     left: '20px'
                 },
                 {
-                    name:'omar',
+                    name:'Omar',
                     img: require('../assets/omar.jpg'),
                     show: false,
                     animate: 'animate__fadeInUp',
-                    position: true
+                    position: true,
+                    top: '-40px',
+                    left: '80px'
                 },
                 {
-                    name:'lubovar melnik',
+                    name:'Lubomyr Melnyk',
                     img: require('../assets/melnik.jpg'),
                     show: false,
-                    animate: 'animate__jello'
+                    animate: 'animate__jello',
+                    top: '-200px',
+                    left: '10px'
                 }
             ],
         }
@@ -73,29 +85,42 @@ export default {
 
 <style lang="scss" scoped>
 
+$text-color: #1212d4;
+
+h2{
+    color: $text-color;
+}
+
 .intro-gallery{
-    background-color: yellowgreen;
+    background-color: white;
     list-style: none;
     padding: 0;
     .intro-gallery--item{
-        position: relative;
+        // position: relative;
         a{
             text-decoration: none;
             &:hover{
                 color:red;
             }
             p{
-                font-size: 1.5rem;
-                position: relative;
+                font-size: 2rem;
+                font-weight: lighter;
+                // position: relative;
                 z-index: 0;
-            }
-            .hover-img{
-                position: absolute;
-                width: 250px;
-                z-index: 9999;
+                color: #ff005d;
+                text-shadow: 3px 3px #ff005d;
+                // &:hover{
+
+                // }
             }
         } 
     }
+}
+
+ .hover-img{
+    position: absolute;
+    width: 150px;
+    z-index: 2;
 }
 
 .cta{
@@ -112,6 +137,20 @@ export default {
 .secondPos{
     top: 50px;
     left: 50px;
+}
+
+.intro-gallery--item:nth-child(2){
+    .hover-img{
+        width: 170px; //middle hover thumbnail is smaller
+    }
+    
+}
+
+.intro-gallery--item:nth-child(3){
+    .hover-img{
+        width: 100px; //last hover thumbnail is smaller
+    }
+    
 }
 
 

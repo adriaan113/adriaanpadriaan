@@ -81,10 +81,14 @@
     
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
+$text-color: #1212d4;
+$sticky-header-color: $text-color;
+
 
 .header-container{
-    background-color: burlywood;
+    // background-color: burlywood;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -99,6 +103,7 @@
        font-size: 8vw;
        display: flex;
        justify-content: center;
+       color: $text-color;
    }
    h1,
    h2{
@@ -124,7 +129,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: #55acee;
+//   background-color: #55acee;
 //   position: fixed;
   top: 0;
 }
@@ -132,7 +137,7 @@
 /* have to add the ID nav (#nav) otherwise the backgrnd color won't change as the previous background color is set in an ID and ID trumps class notation */
 #nav.sticky{
   transition: 150ms;
-  background-color:  #ccd6dd;
+  background-color: $sticky-header-color;
   position: fixed;
   justify-content: flex-start;
   height: 60px;
@@ -141,7 +146,10 @@
         transition: .3s;
         font-size: 1rem;
         margin-left: 1.5rem;
-        
+        color: white;
+    }
+    .bm-burger-bars{
+    background-color: white;
     }
   }
 

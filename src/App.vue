@@ -92,6 +92,8 @@ export default {
 
 @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100;400;900&display=swap');
 
+$text-color: #1212d4;
+
 html{
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -161,6 +163,9 @@ html{
       left: 16px;
       top: 16px;
       cursor: pointer;
+      .bm-burger-bars{
+        background-color: $text-color;
+      }
     }
 
 </style>
