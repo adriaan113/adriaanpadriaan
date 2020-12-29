@@ -4,7 +4,14 @@
             <li v-for="person in work" :key="person.name">
                 <p class="job">{{person.job}}</p>
                 <h2 class="name" @click="showMeStory(person)">{{person.name}}</h2>
-                <carousel :per-page="1" :paginationSize="20" :paginationPadding="5">
+                <carousel :per-page="1" 
+                          :paginationSize="20" 
+                          :paginationPadding="5"
+                          :paginationColor= "'#1212d4'"
+                          :paginationActiveColor="'#ff005d'"
+                          :navigationEnabled="true"
+                          :navigationNextLabel="'next'"
+                          >
                     <slide>
                         <img :src="person.img" alt="" @click="showMeStory(person)">
                     </slide>
@@ -83,6 +90,14 @@ export default {
 
 <style lang="scss" scoped>
 
+
+$text-color: #1212d4;
+
+@mixin shadow-text($x,$y){
+    color: #ff005d;
+    text-shadow: $x $y #ff005d;
+}
+
 .work-container{
     ul{
         display: grid;
@@ -98,19 +113,35 @@ export default {
             z-index: 1;
             // position: relative;
             .name{
-                // margin-bottom: -30px;
+                // position: relative;
+                // top: 70px;
+                // font-size: 2.5rem;
+                // cursor: pointer;
+                // z-index: 1;
+                // color: white;
+                // text-shadow: 0px 0px 20px $text-color;
                 position: relative;
-                top: 70px;
-                font-size: 2.5rem;
-                cursor: pointer;
+                top: 35px;
+                font-size: .9rem;
+                // cursor: pointer;
                 z-index: 1;
-
+                background-color: $text-color;
+                color: white;
+                width: 60px;
+                height: 60px;
+                padding: .6rem;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
             .job{
                 position: relative;
-                top: 120px;
+                top: 50px;
                 font-size: 1rem;
+                font-weight: lighter;
                 text-transform: uppercase;
+                @include shadow-text(1px,1px);
             }
             img{
                 width: 100%;
@@ -124,6 +155,16 @@ export default {
                 padding: 1rem;
                 text-align: left;
                 z-index: -10;
+            }
+            &:nth-child(3n+1){
+                .name{
+                    transform: rotate(4deg);
+                }
+            }
+             &:nth-child(3n+2){
+                .name{
+                    transform: rotate(-5deg);
+                }
             }
         }
     }

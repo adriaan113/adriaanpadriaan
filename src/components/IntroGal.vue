@@ -87,6 +87,11 @@ export default {
 
 $text-color: #1212d4;
 
+@mixin shadow-text($x,$y){
+    color: #ff005d;
+    text-shadow: $x $y #ff005d;
+}
+
 h2{
     color: $text-color;
 }
@@ -107,8 +112,7 @@ h2{
                 font-weight: lighter;
                 // position: relative;
                 z-index: 0;
-                color: #ff005d;
-                text-shadow: 3px 3px #ff005d;
+                @include shadow-text(3px, 3px);
                 // &:hover{
 
                 // }

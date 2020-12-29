@@ -16,12 +16,15 @@
 
 <style lang="scss" scoped>
 
+$text-color: #1212d4;
+
 footer{
-    background-color: tomato;
+    background-color: $text-color;
     margin-top: 100%;
     width: 100%;
     small{
         display: block;
+        color: white;
     }
 }
 </style>
