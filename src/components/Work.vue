@@ -4,22 +4,13 @@
             <li v-for="person in work" :key="person.name">
                 <p class="job">{{person.job}}</p>
                 <h2 class="name" @click="showMeStory(person)">{{person.name}}</h2>
-                <carousel :per-page="1" 
-                          :paginationSize="20" 
-                          :paginationPadding="5"
-                          :paginationColor= "'#1212d4'"
-                          :paginationActiveColor="'#ff005d'"
-                          :navigationEnabled="true"
-                          :navigationNextLabel="'next'"
-                          >
-                    <slide>
-                        <img :src="person.img" alt="" @click="showMeStory(person)">
-                    </slide>
-                    <slide>
-                        <img :src="person.img" alt="" @click="showMeStory(person)">
-                    </slide>
-                </carousel>
-                <p class="story animate__animated" :class="{animate__fadeInDown: person.showStory}" v-show="person.showStory">{{person.story}}</p>
+                <agile>
+                    <img class="slide" :src="person.img" alt="" @click="showMeStory(person)">
+                    <!-- <img class="slide" :src="person.img" alt="" @click="showMeStory(person)"> -->
+                     <!-- <i class="fas fa-chevron-left"></i>
+                     <i class="fas fa-chevron-right"></i> -->
+                </agile>
+                <p class="story animate__animated" :class="{animate__fadeIn: person.showStory}" v-show="person.showStory">{{person.story}}</p>
             </li>
       </ul>
 
@@ -29,12 +20,11 @@
 // :class="{bigger: person.showStory}"
 
 <script>
-import { Carousel, Slide } from 'vue-carousel';
+import { VueAgile } from 'vue-agile'
 
 export default {
     components: {
-    Carousel,
-    Slide
+        agile: VueAgile 
   },
   data() {
     return {
@@ -42,7 +32,7 @@ export default {
             {
                 name: 'Ronnie Flex',
                 job: 'rapper',
-                story: 'at home in Rotterdam. As you can see there’s a freshly made plate of pasta on the table. After the pictures he offered me some. Good sauce!',
+                story: 'Mr. flex at home in Rotterdam. As you can see there’s a freshly made plate of pasta on the table. After the pictures he offered me some. Good sauce!',
                 img: require('../assets/ronnieFlex1.jpg'),
                 showStory: false
             },
@@ -90,8 +80,10 @@ export default {
 
 <style lang="scss" scoped>
 
-
 $text-color: #1212d4;
+$secondary-color: #ff005d;
+$ternary-color: greenyellow;
+
 
 @mixin shadow-text($x,$y){
     color: #ff005d;
@@ -101,7 +93,7 @@ $text-color: #1212d4;
 .work-container{
     ul{
         display: grid;
-        grid: auto-flow / repeat(auto-fit, minmax(200px, 1fr));
+        grid: auto-flow / repeat(auto-fit, minmax(300px, 1fr));
         grid-gap: .5rem;
         justify-content: center;
         list-style: none;
@@ -113,13 +105,6 @@ $text-color: #1212d4;
             z-index: 1;
             // position: relative;
             .name{
-                // position: relative;
-                // top: 70px;
-                // font-size: 2.5rem;
-                // cursor: pointer;
-                // z-index: 1;
-                // color: white;
-                // text-shadow: 0px 0px 20px $text-color;
                 position: relative;
                 top: 35px;
                 font-size: .9rem;
@@ -149,12 +134,17 @@ $text-color: #1212d4;
                 cursor: pointer;
             }
             .story{
-                background-color: lighten(lightgray, 5%);
+                // background-color: lighten(lightgray, 5%);
+                background-color: white;
+                border: 2px solid $text-color;
                 position: relative;
-                margin-top: 0;
-                padding: 1rem;
+                box-shadow: 5px 5px $ternary-color;
+                // top: -400px;
+                // margin-top: 0;
+                margin:  1rem .5rem;
+                padding: 1.5rem;
                 text-align: left;
-                z-index: -10;
+                z-index: 1;
             }
             &:nth-child(3n+1){
                 .name{
@@ -168,12 +158,6 @@ $text-color: #1212d4;
             }
         }
     }
-}
-
-.VueCarousel-slide {
-visibility: visible;
-flex-basis: 100%;
-width: 100%;
 }
 
 // .bigger{
