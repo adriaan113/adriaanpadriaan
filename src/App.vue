@@ -97,7 +97,8 @@ $work-nav-btn: $text-color;
 $secondary-color: #ff005d;
 $ternary-color: greenyellow;
 
-$media-medium-width: 624px;
+$breakpoint-medium: 624px;
+
 
 html{
   scroll-behavior: smooth;
@@ -179,7 +180,7 @@ html{
 
     &__actions{
         margin: 20px 4px 0;
-        @media (min-width: $media-medium-width) {
+        @media (min-width: $breakpoint-medium) {
           margin: 20px 3rem 0;
         }
     }
