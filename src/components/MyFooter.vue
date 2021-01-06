@@ -21,7 +21,7 @@ $text-color: #1212d4;
 footer{
     background-color: $text-color;
     margin-top: 100%;
-    width: 100%;
+    width: 110%;
     small{
         display: block;
         color: white;

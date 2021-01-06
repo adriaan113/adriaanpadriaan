@@ -97,6 +97,8 @@ $work-nav-btn: $text-color;
 $secondary-color: #ff005d;
 $ternary-color: greenyellow;
 
+$media-medium-width: 624px;
+
 html{
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -112,12 +114,11 @@ html{
   }
 
 #app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif;
+ 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px; */
+ 
+ 
   
   font-family: 'Catamaran', sans-serif;
   text-align: center;
@@ -178,6 +179,9 @@ html{
 
     &__actions{
         margin: 20px 4px 0;
+        @media (min-width: $media-medium-width) {
+          margin: 20px 3rem 0;
+        }
     }
 		
 

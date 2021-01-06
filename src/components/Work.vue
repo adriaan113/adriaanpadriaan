@@ -1,10 +1,10 @@
 <template>
     <div class="work-container">
-      <ul>
+        <ul>
             <li v-for="person in work" :key="person.name">
                 <p class="job">{{person.job}}</p>
                 <h2 class="name" @click="showMeStory(person)">{{person.name}}</h2>
-                <agile>
+                <agile :centerMode="true">
                     <img class="slide" :src="person.img" alt="" @click="showMeStory(person)">
                     <!-- <img class="slide" :src="person.img" alt="" @click="showMeStory(person)"> -->
                      <!-- <i class="fas fa-chevron-left"></i>
@@ -12,7 +12,7 @@
                 </agile>
                 <p class="story animate__animated" :class="{animate__fadeIn: person.showStory}" v-show="person.showStory">{{person.story}}</p>
             </li>
-      </ul>
+        </ul>
 
     </div>
 </template>

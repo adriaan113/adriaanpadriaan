@@ -25,13 +25,24 @@
         </kinesis-container>
       </div>
 
-    <Slide right width="300" closeOnNavigation>
-      <a id="home" href="#" @click="menuItems">
-        <span><a>home</a></span>
-        <span><a>work</a></span>
-        <span><a>info</a></span>
-      </a>
-    </Slide>
+    <div class="mobile-menu" v-if="mobileWidth">
+        <Slide right width="300" closeOnNavigation>
+        <a id="home" href="#" @click="menuItems">
+            <span><a>home</a></span>
+            <span><a>work</a></span>
+            <span><a>info</a></span>
+        </a>
+        </Slide>
+    </div>
+
+
+    <div class="desktop-menu" v-else>
+        <a id="home" href="#" @click="menuItems">
+            <span><a>home</a></span>
+            <span><a>work</a></span>
+            <span><a>info</a></span>
+        </a>
+    </div>
 
 </div>
     </header>
@@ -51,7 +62,8 @@
       },
       data(){
           return{
-              active: false
+              active: false,
+              mobileWidth: true,
           }
       },
       methods: {
@@ -74,10 +86,21 @@
                     this.active = true;
                 }else{
                     this.active = false;
+                }       
+            }
+        },
+        created() {
+            window.addEventListener('resize',()=>{
+               
+                if(window.innerWidth>600){
+                    this.mobileWidth = false;
+                }else if(window.innerWidth<600){
+                    this.mobileWidth = true;
+                }
+            }
+            )
         }
-    }
-        }
-      }
+}
     
 </script>
 
