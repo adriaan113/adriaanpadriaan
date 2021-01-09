@@ -15,7 +15,7 @@
                     <img :src="eyeRight" alt="" class="eye right">
                 </div>
 
-                <svg viewBox="0 0 37 0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" @>
+                <svg viewBox="0 0 37 0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="satan">
                     <defs>
                         <filter x="-31.1%" y="-23.5%" width="162.2%" height="146.9%" filterUnits="objectBoundingBox" id="b">
                         <feMorphology radius="3" in="SourceAlpha" result="shadowSpreadInner1"/>
@@ -61,6 +61,9 @@
 </template>
 
 <script>
+
+import { gsap } from "gsap";
+
 export default {
     data(){
         return{
@@ -68,6 +71,7 @@ export default {
             portretNew: require('../assets/adriaan-van-der-ploeg2.jpg'),
             eyeLeft: require('../assets/eye-left2.png'),
             eyeRight: require('../assets/eye-right2.png'),
+            tongueInOut: false
         }
     },
     methods:{
@@ -85,12 +89,34 @@ export default {
         },
 
         tongue: function (){
-            setInterval(()=>{
-                const tongue = document.querySelector('svg');
 
-                tongue.setAttribute('viewBox', '0 0 37 49');
+               
 
-                    },2000);
+                const tongue = document.querySelector('#satan');
+
+                
+
+                setInterval(()=>{
+
+
+                if(!this.tongueInOut){
+                    gsap.to(tongue, {attr: {viewBox: "0 0 37 49"},duration: 2,delay:4,});
+                    this.tongueInOut = true;
+                }else if(this.tongueInOut){
+                    gsap.to(tongue, {attr: {viewBox: "0 0 37 0"},duration: 0.5,});
+                    this.tongueInOut= false;
+                }
+
+
+
+                },6000)
+                
+                
+                
+
+               
+
+              
         }
     },
     mounted(){
