@@ -60,21 +60,21 @@ export default {
         hoverName:function(person){
             person.show = !person.show;
         },
-        // test: function(){
-        //     const ctaText = document.querySelector('.cta');
-        //     const string = ctaText.textContent;
-        //     ctaText.innerHTML = '';
-        //     string.split('').forEach(function(e){
-        //         const newCtaText = document.createElement('H2');
-        //         newCtaText.classList.add('cta');
-        //         newCtaText.style.display = 'inline';
-        //         // newCtaText.style.color = "#"+((1<<24)*Math.random()|0).toString(16)
-        //         newCtaText.style.fontSize = (Math.random() * (36 - 30) + 20) + 'px';
-        //         // newCtaText.style.transform = `rotate(${Math.floor(Math.random() * 50)}deg)`;
-        //         newCtaText.innerHTML = e;
-        //         ctaText.appendChild(newCtaText);
-        //     });
-        // }
+        irregularTextSize: function(){ // HIERMEE VERRANDER JE DUS DE FONTSIZE PER LETTER. MAAR DE ROTATE WIL NOG NIET VLOTTEN
+            const ctaText = document.querySelector('.cta');
+            const string = ctaText.textContent;
+            ctaText.innerHTML = '';
+            string.split('').forEach(function(e){
+                const newCtaText = document.createElement('H2');
+                newCtaText.classList.add('cta');
+                newCtaText.style.display = 'inline';
+                // newCtaText.style.color = "#"+((1<<24)*Math.random()|0).toString(16)
+                newCtaText.style.fontSize = (Math.random() * (4 - 1) + 20) + 'px';
+                newCtaText.style.transform = 'rotate(180deg)'; //WAAROM DOET DIT HET NIET???
+                newCtaText.innerHTML = e;
+                ctaText.appendChild(newCtaText);
+            });
+        },
         showWork: function(){
         //    this.$root.$emit('hoi vanuit introGal');
             this.$emit('work');

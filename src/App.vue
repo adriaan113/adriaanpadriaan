@@ -175,79 +175,79 @@ html{
 
 /***********CAROUSEL STYLES***********/
 
-    .agile {
-    width: 100%;
+//     .agile {
+//     width: 100%;
 
-    &__actions{
-        margin: 20px 4px 0;
-        @media (min-width: $breakpoint-medium) {
-          margin: 20px 3rem 0;
-        }
-    }
+//     &__actions{
+//         margin: 20px 4px 0;
+//         @media (min-width: $breakpoint-medium) {
+//           margin: 20px 3rem 0;
+//         }
+//     }
 		
 
-	&__nav-button{
-    background: transparent;
-		border: none;
-		color: red;
-		cursor: pointer;
-		font-size: 24px;
-		transition-duration: .3s;
-    // &--prev{
-    //       border: 2px solid red;
-    //     }
-		&:hover{
-            color: #888;
-        }
-    }
+// 	&__nav-button{
+//     background: transparent;
+// 		border: none;
+// 		color: red;
+// 		cursor: pointer;
+// 		font-size: 24px;
+// 		transition-duration: .3s;
+//     // &--prev{
+//     //       border: 2px solid red;
+//     //     }
+// 		&:hover{
+//             color: #888;
+//         }
+//     }
 		
 
-	&__dot{
-        margin: 0 10px;
-    }
+// 	&__dot{
+//         margin: 0 10px;
+//     }
 		
 
-		button{
-      background-color: $work-nav-btn;
-			border: none;
-			border-radius: 50%;
-			cursor: pointer;
-			display: block;
-			height: 15px;
-      width: 15px;
-			font-size: 0;
-			line-height: 0;
-			margin: 0;
-			padding: 0;
-			transition-duration: .3s;
-            &--current,
-            &:hover{
-                button{
-                    background-color: #888;
-                }  
-            }             
-        }	
-}
+// 		button{
+//       background-color: $work-nav-btn;
+// 			border: none;
+// 			border-radius: 50%;
+// 			cursor: pointer;
+// 			display: block;
+// 			height: 15px;
+//       width: 15px;
+// 			font-size: 0;
+// 			line-height: 0;
+// 			margin: 0;
+// 			padding: 0;
+// 			transition-duration: .3s;
+//             &--current,
+//             &:hover{
+//                 button{
+//                     background-color: #888;
+//                 }  
+//             }             
+//         }	
+// }
 
-.agile__nav-button--prev{
-  background-color: white !important; //BETER MAKEN DIT
-  width: 0 !important;
-  height: 0 !important;
-  border-radius: 0 !important;
-  border-top: 10px solid transparent !important;
-  border-right: 15px solid $secondary-color !important;
-  border-bottom: 10px solid transparent !important;
-}
+// .agile__nav-button--prev{
+//   background-color: white !important; //BETER MAKEN DIT
+//   width: 0 !important;
+//   height: 0 !important;
+//   border-radius: 0 !important;
+//   border-top: 10px solid transparent !important;
+//   border-right: 15px solid $secondary-color !important;
+//   border-bottom: 10px solid transparent !important;
+// }
 
-.agile__nav-button--next{
-  background-color: white !important; //BETER MAKEN DIT
-  width: 0 !important;
-  height: 0 !important;
-  border-radius: 0 !important;
-  border-top: 10px solid transparent !important;
-  border-left: 15px solid $secondary-color !important;
-  border-bottom: 10px solid transparent !important;
-}
+// .agile__nav-button--next{
+//   background-color: white !important; //BETER MAKEN DIT
+//   width: 0 !important;
+//   height: 0 !important;
+//   border-radius: 0 !important;
+//   border-top: 10px solid transparent !important;
+//   border-left: 15px solid $secondary-color !important;
+//   border-bottom: 10px solid transparent !important;
+// }
 
 
 </style>
