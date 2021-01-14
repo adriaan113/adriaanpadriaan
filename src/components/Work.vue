@@ -14,8 +14,10 @@
                 <!-- </agile> -->
 
 
-                <img :src="person.img" alt=""  @click="showWork(person)"> <!--test(); kan ik invoegen @click voor meerdere acties-->
-                <!-- <p class="story animate__animated" :class="{animate__fadeIn: person.showMore}" v-show="person.showMore">{{person.story}}</p> -->
+                <img :src="person.img" alt="" class="first-img"  @click="showWork(person); animateName(person)"> <!--test(); kan ik invoegen @click voor meerdere acties-->
+                <div class="extra-info animate__animated" :class="{animate__fadeIn: person.showMore}" v-show="person.showMore">
+                    <p class="story">{{person.story}}</p>
+                </div>
             </li>
         </ul>
 
@@ -25,6 +27,8 @@
 
 <script>
 // import { VueAgile } from 'vue-agile'
+import { gsap } from "gsap";
+
 
 export default {
     components: {
@@ -69,35 +73,35 @@ export default {
                 showMore: false
             },
              {
-                name: 'Fien Troch',
+                name: 'Sien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
                 img: require('../assets/fienTroch1.jpg'),
                 showMore: false
             },
              {
-                name: 'Fien Troch',
+                name: 'Pien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
                 img: require('../assets/fienTroch1.jpg'),
                 showMore: false
             },
              {
-                name: 'Fien Troch',
+                name: 'Kien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
                 img: require('../assets/fienTroch1.jpg'),
                 showMore: false
             },
              {
-                name: 'Fien Troch',
+                name: 'Lien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
                 img: require('../assets/fienTroch1.jpg'),
                 showMore: false
             },
              {
-                name: 'Fien Troch',
+                name: 'Vien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
                 img: require('../assets/fienTroch1.jpg'),
@@ -110,42 +114,62 @@ export default {
         // showMeStory: function(person){
         //     return person.showMore = !person.showMore; 
         // },
-        makeBigger: function(person){
-            console.log(person); 
+        // makeBigger: function(person){
+        //     console.log(person); 
+        // },
+        animateName: function(person){
+            const DomNames = document.querySelectorAll('.work-container .name');
+            const grid = document.querySelector('.work-container ul');
+
+            setTimeout(()=>{
+                for(let i =0;i<this.work.length;i++){
+                    if(person.name === DomNames[i].innerHTML){
+                        if(grid.children[i].classList.contains('bigger')){
+                            gsap.to(DomNames[i],{duration:.6, y:grid.children[i].children[2].offsetHeight});
+                        }else if(grid.children[i].classList.contains('bigger')===false){
+                            gsap.to(DomNames[i],{duration:.3, y: 0});
+                        }
+                    }
+                }
+            },100);
         },
         showWork: function(person){
             return person.showMore = !person.showMore; 
         },
-        checkThirdGridItem: function(){ //DIT IS ENKEL RELEVANT VOOR DESKTOP SIZE
+        checkThirdGridItem: function(){ //DIT IS ENKEL RELEVANT VOOR DESKTOP SIZE. MISSCHIEN NOG EEN ANDERE FUNCTIE MAKEN VOOR TABLET EN TELEFOON?
             const grid = document.querySelector('.work-container ul');
 
             const mqDesktop = window.matchMedia("(min-width: 948px)");
+
+            function growSelectedLi(i,x){//HOORT DAT HIER WEL? OF MOET IK ZE HELEMAAL BOVENAAN ZETTEN ONDER DE SCRIPT TAG OPENING?
+                grid.children[i].style.gridColumn="2 / span 2";
+                grid.children[i].style.gridRow =`${x}/ auto`;
+            }
+
+            function shrinkSelectedLi(i){
+                grid.children[i].style.gridColumn = null;
+                grid.children[i].style.gridRow = null;
+            }
             
             if(mqDesktop.matches){
                 for(let i = 0; i<grid.children.length; i++){
                     if(i === 2){ //HOE KAN IK HIER Modulus INZETTEN?
-                        if(grid.children[i].classList.contains('bigger')){ //HIERONDER ALLEMAAL DUBBELE CODE. KAN IK EEN APARTE FUNCTIE VAN MAKEN
-                            grid.children[i].style.gridColumn="2 / span 2";
-                            grid.children[i].style.gridRow ="1/ auto";
+                        if(grid.children[i].classList.contains('bigger')){ 
+                            growSelectedLi(i,1);
                         }else{
-                            grid.children[i].style.gridColumn = null;
-                            grid.children[i].style.gridRow = null;
+                            shrinkSelectedLi(i);
                         }
                     }else if(i === 5){
                         if(grid.children[i].classList.contains('bigger')){
-                            grid.children[i].style.gridColumn="2 / span 2";
-                            grid.children[i].style.gridRow ="2/ auto";
+                            growSelectedLi(i,2);
                         }else{
-                            grid.children[i].style.gridColumn = null;
-                            grid.children[i].style.gridRow = null;
+                            shrinkSelectedLi(i);
                         }
                     }else if(i === 8){
                         if(grid.children[i].classList.contains('bigger')){
-                            grid.children[i].style.gridColumn="2 / span 2";
-                            grid.children[i].style.gridRow ="2/ auto";
+                            growSelectedLi(i,2);
                         }else{
-                            grid.children[i].style.gridColumn = null;
-                            grid.children[i].style.gridRow = null;
+                            shrinkSelectedLi(i);
                         }
                     }
                 }
@@ -159,10 +183,8 @@ export default {
                 if(grid.children[i].classList.contains('bigger')){
                 grid.children[i].scrollIntoView(); 
                 }
-            }
-            
-            
-        }
+            } 
+        },
     },
 
     updated(){
@@ -254,22 +276,16 @@ $ternary-color: greenyellow;
 }
 
 .bigger{
-
     grid-column: auto /span 2;
     order: 0;
-
-    // position: absolute !important;
-    // position: relative;
-    // top: 0;
-    // left: 0;
-    // margin: 0 auto;
-    // z-index: 2 !important;
-    // width: 100vw;
-
     img{
         width: 70%;
     }
 }
+
+// .name-move{
+//     transform: translateY(100%);
+// }
 
 
 </style>
