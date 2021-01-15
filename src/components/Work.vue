@@ -1,19 +1,26 @@
 <template>
     <div class="work-container">
         <ul class="work-gallery">
-            <li v-for="person in work" :key="person.name" class="work-gallery--item" :class="{bigger: person.hover}" @click="showMoreOnClick(person)">
+            <li v-for="person in work" 
+            :key="person.name" 
+            class="work-gallery--item" 
+            :class="{bigger: person.hover}" 
+            @click="showMoreOnClick(person)" 
+            @mouseover="hoverName(person)" 
+            @mouseleave="person.hover=false"
+            >
                 
                 <p class="job">{{person.job}}</p>
                 <h2 class="name">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
 
-                <!-- <div v-if="person.hover" class="animate__animated" :class="person.animate">
-                    <thumb :src="person.thumb" alt="" class="hover-thumb" :style="{top:person.top, left:person.left}">
-                </div> -->
+                <div v-show="person.hover" class="animate__animated">
+                    <img :src="person.thumb" alt="" class="hover-thumb" :class="{'hide-thumb': person.showMore}" :style="{top:person.top, left:person.left}">
+                </div>
                 
                 <transition 
-                @before-enter="beforeTest"
-                @enter="enterTest"
-                @leave="leaveTest"
+                @before-enter="beforeOpen"
+                @enter="enterProject"
+                @leave="leaveProject"
                 :css="false"
                 >
                     <div class="is-selected" v-if="person.showMore">
@@ -130,21 +137,29 @@ export default {
     },
     methods:{
 
-        // hoverName:function(person){
-        //     person.hover = !person.hover;
+        // deleteHoverImgWhenOpen: function(person){
+        //     if(person.showMore){
+        //         return person.hover = false;
+        //     }
+            
         // },
+
+        hoverName:function(person){
+            person.hover = !person.hover;
+            
+        },
         showMoreOnClick: function(person){
             person.showMore = !person.showMore;
         },
-        beforeTest: function (el){
+        beforeOpen: function (el){
             el.style.transform ='scaleY(0)';
             el.style.transformOrigin ='top';
             el.style.transform = 'translateY(-50)';
         },
-        enterTest: function(el, done) {
+        enterProject: function(el, done) {
             gsap.to(el,{duration:.3,y:0, scaleY:1,onComplete: done});
         },
-        leaveTest: function(el, done) {
+        leaveProject: function(el, done) {
             gsap.to(el,{duration:.3, scaleY:0,onComplete: done});
         },
     },
@@ -216,43 +231,8 @@ $ternary-color: greenyellow;
     z-index: 2;
 }
 
-//ANIMATION
-
-// @keyframes slide-in{
-//     0% {transform: translateY(-90px);}
-//     100%{transform: translateY(0px);}; 
-// }
-
-// @keyframes slide-out{
-//     0% {transform: translateY(0px); }
-//     100%{transform: translateY(-90px);}
-// }
-
-// .slide-in{
-//     animation: slide-in 1s ease;
-// }
-
-// .slide-out{
-//     animation: slide-out 2s ease;
-// }
-
-//TRANSITION
-
-// .slide-enter-active{
-//     transition: all 0.3s ease-in;
-// }
-
-// .slide-leave-active{
-//     transition: all .3s ease-out; 
-// }
-
-// .slide-enter {
-//     transform: translateY(-90px);
-    
-// }
-
-// .slide-leave-to{
-//     transform: translateY(-70px);
-// }
+.hide-thumb{
+    opacity: 0;
+}
 
 </style>
