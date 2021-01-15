@@ -117,6 +117,24 @@ export default {
         // makeBigger: function(person){
         //     console.log(person); 
         // },
+
+        // isSelected: function(person){
+        //     if(person.showMore){
+        //         for(let i=0;i<work.length;i++){
+        //            if(){
+
+        //            }
+        //            work[i].showMore
+        //         }
+        //         this.work.showMore = false;
+        //     }
+        // },
+        closeAll: function(){
+            for(let i=0;i<this.work.length;i++){
+                this.work[i].showMore= false;
+            }
+        },
+
         animateName: function(person){
             const DomNames = document.querySelectorAll('.work-container .name');
             const grid = document.querySelector('.work-container ul');
@@ -134,6 +152,7 @@ export default {
             },100);
         },
         showWork: function(person){
+            this.closeAll();
             return person.showMore = !person.showMore; 
         },
         checkThirdGridItem: function(){ //DIT IS ENKEL RELEVANT VOOR DESKTOP SIZE. MISSCHIEN NOG EEN ANDERE FUNCTIE MAKEN VOOR TABLET EN TELEFOON?
