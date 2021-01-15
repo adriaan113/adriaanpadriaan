@@ -1,23 +1,31 @@
 <template>
     <div class="work-container">
-        <ul>
-            <li v-for="person in work" :key="person.name" :class="{bigger: person.showMore}">
+        <ul class="work-gallery">
+            <li v-for="person in work" :key="person.name" class="work-gallery--item" :class="{bigger: person.hover}" @click="showMoreOnClick(person)">
+                
                 <p class="job">{{person.job}}</p>
-                <h2 class="name">{{person.name}}</h2>
-                <!-- <agile :centerMode="true">
-                    <img class="slide" :src="person.img" alt="" @click="showMeStory(person)"> -->
+                <h2 class="name">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
 
-                    <!-- <img class="slide" :src="person.img" alt="" @click="showMeStory(person)"> -->
-                     <!-- <i class="fas fa-chevron-left"></i>
-                     <i class="fas fa-chevron-right"></i> -->
+                <!-- <div v-if="person.hover" class="animate__animated" :class="person.animate">
+                    <thumb :src="person.thumb" alt="" class="hover-thumb" :style="{top:person.top, left:person.left}">
+                </div> -->
+                
+                <transition 
+                @before-enter="beforeTest"
+                @enter="enterTest"
+                @leave="leaveTest"
+                :css="false"
+                >
+                    <div class="is-selected" v-if="person.showMore">
+                        <ul>
+                            <li v-for="img in person.extraImg" :key="img.id">
+                                <img :src="img"  alt=""> 
+                            </li>
+                        </ul>
+                        <p class="story">{{person.story}}</p>
+                    </div>
+                </transition>   
 
-                <!-- </agile> -->
-
-
-                <img :src="person.img" alt="" class="first-img"  @click="showWork(person); animateName(person)"> <!--test(); kan ik invoegen @click voor meerdere acties-->
-                <div class="extra-info animate__animated" :class="{animate__fadeIn: person.showMore}" v-show="person.showMore">
-                    <p class="story">{{person.story}}</p>
-                </div>
             </li>
         </ul>
 
@@ -26,14 +34,13 @@
 
 
 <script>
-// import { VueAgile } from 'vue-agile'
-import { gsap } from "gsap";
+import gsap from 'gsap';
+
+//import { gsap } from "gsap";
 
 
 export default {
-    components: {
-        // agile: VueAgile 
-  },
+
   data() {
     return {
         work:[
@@ -41,174 +48,106 @@ export default {
                 name: 'Ronnie Flex',
                 job: 'rapper',
                 story: 'Mr. flex at home in Rotterdam. As you can see there’s a freshly made plate of pasta on the table. After the pictures he offered me some. Good sauce!',
-                img: require('../assets/ronnieFlex1.jpg'),
+                thumb: require('../assets/ronnieFlex1.jpg'),
+                extraImg: [require('../assets/ronnieFlex2.jpg'),require('../assets/ronnieFlex1.jpg')],
+                hover: false,
                 showMore: false
             },
             {
                 name: 'Claudia Cardinale',
                 job: 'moviestar',
                 story: 'is an true diva. In the best sense of the word.',
-                img: require('../assets/claudiaCardinale1.jpg'),
+                thumb: require('../assets/claudiaCardinale1.jpg'),
+                hover: false,
                 showMore: false
             },
             {
                 name: 'Theo Heuft',
                 job: 'in these pictures...',
                 story: "...you see Theo Heuft. Theo was the owner of a an establishment called Yab Yum. A well known brothel in Amsterdam. Theo has a thousand stories from that time. He told them all when i visited him in France for the Volkskrant. His wife started a Bed&Breakfast there. He's bored out of his mind.",
-                img: require('../assets/theoHeuft1.jpg'),
-                showMore: false
+                thumb: require('../assets/theoHeuft1.jpg'),
+                hover: false,
+                showMore: false,
             },
             {
                 name: 'Maarten Spruyt',
                 job: 'stylist',
                 story: 'favorite color appears to green. Both his house and his wardrobe was full of it. Quite remarkable. Besides that he’s also a really nice and talented guy.',
-                img: require('../assets/maartenSpruyt1.jpg'),
+                thumb: require('../assets/maartenSpruyt1.jpg'),
+                hover: false,
                 showMore: false
             },
             {
                 name: 'Fien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
-                img: require('../assets/fienTroch1.jpg'),
+                thumb: require('../assets/fienTroch1.jpg'),
+                hover: false,
                 showMore: false
             },
              {
                 name: 'Sien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
-                img: require('../assets/fienTroch1.jpg'),
+                thumb: require('../assets/fienTroch1.jpg'),
+                hover: false,
                 showMore: false
             },
              {
                 name: 'Pien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
-                img: require('../assets/fienTroch1.jpg'),
+                thumb: require('../assets/fienTroch1.jpg'),
+                hover: false,
                 showMore: false
             },
              {
                 name: 'Kien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
-                img: require('../assets/fienTroch1.jpg'),
+                thumb: require('../assets/fienTroch1.jpg'),
+                hover: false,
                 showMore: false
             },
              {
                 name: 'Lien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
-                img: require('../assets/fienTroch1.jpg'),
+                thumb: require('../assets/fienTroch1.jpg'),
+                hover: false,
                 showMore: false
             },
              {
                 name: 'Vien Troch',
                 job: 'Director',
                 story: 'in her hotel room during the Rotterdam film festival.',
-                img: require('../assets/fienTroch1.jpg'),
+                thumb: require('../assets/fienTroch1.jpg'),
+                hover: false,
                 showMore: false
             }
         ]
         }
     },
     methods:{
-        // showMeStory: function(person){
-        //     return person.showMore = !person.showMore; 
+
+        // hoverName:function(person){
+        //     person.hover = !person.hover;
         // },
-        // makeBigger: function(person){
-        //     console.log(person); 
-        // },
-
-        // isSelected: function(person){
-        //     if(person.showMore){
-        //         for(let i=0;i<work.length;i++){
-        //            if(){
-
-        //            }
-        //            work[i].showMore
-        //         }
-        //         this.work.showMore = false;
-        //     }
-        // },
-        closeAll: function(){
-            for(let i=0;i<this.work.length;i++){
-                this.work[i].showMore= false;
-            }
+        showMoreOnClick: function(person){
+            person.showMore = !person.showMore;
         },
-
-        animateName: function(person){
-            const DomNames = document.querySelectorAll('.work-container .name');
-            const grid = document.querySelector('.work-container ul');
-
-            setTimeout(()=>{
-                for(let i =0;i<this.work.length;i++){
-                    if(person.name === DomNames[i].innerHTML){
-                        if(grid.children[i].classList.contains('bigger')){
-                            gsap.to(DomNames[i],{duration:.6, y:grid.children[i].children[2].offsetHeight});
-                        }else if(grid.children[i].classList.contains('bigger')===false){
-                            gsap.to(DomNames[i],{duration:.3, y: 0});
-                        }
-                    }
-                }
-            },100);
+        beforeTest: function (el){
+            el.style.transform ='scaleY(0)';
+            el.style.transformOrigin ='top';
+            el.style.transform = 'translateY(-50)';
         },
-        showWork: function(person){
-            this.closeAll();
-            return person.showMore = !person.showMore; 
+        enterTest: function(el, done) {
+            gsap.to(el,{duration:.3,y:0, scaleY:1,onComplete: done});
         },
-        checkThirdGridItem: function(){ //DIT IS ENKEL RELEVANT VOOR DESKTOP SIZE. MISSCHIEN NOG EEN ANDERE FUNCTIE MAKEN VOOR TABLET EN TELEFOON?
-            const grid = document.querySelector('.work-container ul');
-
-            const mqDesktop = window.matchMedia("(min-width: 948px)");
-
-            function growSelectedLi(i,x){//HOORT DAT HIER WEL? OF MOET IK ZE HELEMAAL BOVENAAN ZETTEN ONDER DE SCRIPT TAG OPENING?
-                grid.children[i].style.gridColumn="2 / span 2";
-                grid.children[i].style.gridRow =`${x}/ auto`;
-            }
-
-            function shrinkSelectedLi(i){
-                grid.children[i].style.gridColumn = null;
-                grid.children[i].style.gridRow = null;
-            }
-            
-            if(mqDesktop.matches){
-                for(let i = 0; i<grid.children.length; i++){
-                    if(i === 2){ //HOE KAN IK HIER Modulus INZETTEN?
-                        if(grid.children[i].classList.contains('bigger')){ 
-                            growSelectedLi(i,1);
-                        }else{
-                            shrinkSelectedLi(i);
-                        }
-                    }else if(i === 5){
-                        if(grid.children[i].classList.contains('bigger')){
-                            growSelectedLi(i,2);
-                        }else{
-                            shrinkSelectedLi(i);
-                        }
-                    }else if(i === 8){
-                        if(grid.children[i].classList.contains('bigger')){
-                            growSelectedLi(i,2);
-                        }else{
-                            shrinkSelectedLi(i);
-                        }
-                    }
-                }
-            }
-
-            
-        },
-        test: function(){ //SCROLL INTO VIEW. MOET NOG WORDEN GEFINETUNED. 
-            const grid = document.querySelector('.work-container ul');//DUBBEL
-            for(let i = 0; i<grid.children.length; i++){
-                if(grid.children[i].classList.contains('bigger')){
-                grid.children[i].scrollIntoView(); 
-                }
-            } 
+        leaveTest: function(el, done) {
+            gsap.to(el,{duration:.3, scaleY:0,onComplete: done});
         },
     },
-
-    updated(){
-        this.checkThirdGridItem();
-    }
  }
 </script>
 
@@ -225,86 +164,95 @@ $ternary-color: greenyellow;
 }
 
 .work-container{
-    width: 100%;
-    ul{
-        display: grid;
-        grid: auto-flow / repeat(auto-fit, minmax(300px, 1fr)); //GEEN AUTO-FIT IPV 3?
-        grid-gap: .5rem;
-        justify-content: center;
+    .work-gallery{
+        display: flex;
+        flex-flow: column wrap;
         list-style: none;
         padding: 0;
         max-width: 1200px;
-        margin: 0 auto;
-        // position: relative;
+        &--item{
+            cursor: pointer;
+        }
+    }   
+}
+
+.is-selected{
+    ul{
+        list-style: none;
+        padding: 0;
+        display: flex;
         li{
-            display: flex;
-            flex-flow: column nowrap;
-            align-items: center;
-            z-index: 1;
-            position: relative;
-            
-            .name{
-                position: relative;
-                top: 35px;
-                font-size: .9rem;
-                z-index: 1;
-                background-color: $text-color;
-                color: white;
-                width: 60px;
-                height: 60px;
-                padding: .6rem;
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .job{
-                position: relative;
-                top: 50px;
-                font-size: 1rem;
-                font-weight: lighter;
-                text-transform: uppercase;
-                @include shadow-text(1px,1px);
-            }
+            margin: 1rem .5rem;
             img{
                 width: 100%;
-                cursor: pointer;
-            }
-            .story{
-                background-color: white;
-                border: 2px solid $text-color;
-                position: relative;
-                box-shadow: 5px 5px $ternary-color;
-                margin:  1rem .5rem;
-                padding: 1.5rem;
-                text-align: left;
-                z-index: 1;
-            }
-            &:nth-child(3n+1){
-                .name{
-                    transform: rotate(4deg);
-                }
-            }
-             &:nth-child(3n+2){
-                .name{
-                    transform: rotate(-5deg);
-                }
             }
         }
-    }
+    } 
 }
 
-.bigger{
-    grid-column: auto /span 2;
-    order: 0;
-    img{
-        width: 70%;
-    }
+.story{
+    background-color: white;
+    border: 2px solid $text-color;
+    position: relative;
+    box-shadow: 5px 5px $ternary-color;
+    margin:  1rem .5rem;
+    padding: 1.5rem;
+    text-align: left;
+    z-index: 1;
 }
 
-// .name-move{
-//     transform: translateY(100%);
+.job{
+    position: relative;
+    top: 30px;
+    font-size: 1rem;
+    font-weight: lighter;
+    text-transform: uppercase;
+    @include shadow-text(1px,1px);
+}
+
+.hover-thumb{
+    position: absolute;
+    width: 150px;
+    z-index: 2;
+}
+
+//ANIMATION
+
+// @keyframes slide-in{
+//     0% {transform: translateY(-90px);}
+//     100%{transform: translateY(0px);}; 
 // }
 
+// @keyframes slide-out{
+//     0% {transform: translateY(0px); }
+//     100%{transform: translateY(-90px);}
+// }
+
+// .slide-in{
+//     animation: slide-in 1s ease;
+// }
+
+// .slide-out{
+//     animation: slide-out 2s ease;
+// }
+
+//TRANSITION
+
+// .slide-enter-active{
+//     transition: all 0.3s ease-in;
+// }
+
+// .slide-leave-active{
+//     transition: all .3s ease-out; 
+// }
+
+// .slide-enter {
+//     transform: translateY(-90px);
+    
+// }
+
+// .slide-leave-to{
+//     transform: translateY(-70px);
+// }
 
 </style>
