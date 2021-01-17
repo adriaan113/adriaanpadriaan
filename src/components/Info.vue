@@ -1,5 +1,5 @@
 <template>
-  <div class="info" @mousemove="eyeMove" @click="floatingHead">
+  <div class="info" @mousemove="eyeMove">
     <div class="about-me">
       <h1>Adriaan van der Ploeg...</h1>
       <p>is fotograaf en beeldredacteur bij de Volkskrant</p>
@@ -176,6 +176,7 @@ export default {
         }
       }, 6000);
     },
+
     // makeMeBlush: function(){
 
     //     const cheeks= document.querySelector('.blush-container');
@@ -187,6 +188,7 @@ export default {
     //     tl.to(cheeks, {duration: 3, opacity: 1, delay: 10});
     //     tl.to(cheeks, {duration: 3, opacity: 0, delay: 5});
     // },
+
     floatingHead: function(){
       const head= document.querySelector('.portrait');
       const shadow=document.querySelector('.face-shadow');
@@ -196,16 +198,36 @@ export default {
       tl.to(head,{y:"random(-10, 10)",duration:1,repeat:-1,yoyo:true, rotation:"random(-5, 5)",repeatRefresh:true,});
       tl.to(shadow,{scale:1.1,duration:1,repeat:-1,yoyo:true,repeatRefresh:true});
 
-    }
+    },
+      irregularText: function(){
+            const text = document.querySelectorAll('p');
+            for(let i =0; i<text.length; i++){
+                const string = text[i].textContent;
+                text[i].innerHTML = '';
+                string.split('').forEach(function(e){
+                    const newtext = document.createElement('P');
+                    // newtext.classList.add('cta');
+                    newtext.style.display = 'inline';
+                    newtext.style.fontSize = (Math.random() * (16 - 13) + 15) + 'px';
+                    // newtext.style.transform = `rotate(${Math.floor(Math.random() * 50)}deg)`;
+                    newtext.innerHTML = e;
+                    text[i].appendChild(newtext);
+                });
+            }
+           
+        }
   },
   mounted() {
     this.tongue();
+    this.floatingHead();
+    this.irregularText();
     //this.makeMeBlush();
   }
 };
 </script>
 
 <style lang="scss" scoped>
+
 .info {
   background-color: white;
 
@@ -214,6 +236,13 @@ export default {
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
+
+    p{
+      margin: .2rem;
+      &:nth-child(4){
+        margin-bottom: 2rem;
+      }
+    }
 
     .portrait {
       position: relative;
@@ -252,9 +281,9 @@ export default {
 
 .blush-container{
     position: absolute;
-    top: 50%;
-    left: 36%;
-    width: 33%;
+    top: 60%;
+    left: 28%;
+    width: 43%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;

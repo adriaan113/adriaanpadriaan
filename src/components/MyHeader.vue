@@ -1,7 +1,7 @@
 <template>
   <header class="header-container">
     <div id="nav" :class="{sticky: active}">
-      <div id="nav-container">
+      <router-link to="/home">
         <kinesis-container class="name" tag="div">
           <kinesis-element :strength="10" tag="span" type="rotate" axis="x">
             <h1>A</h1>
@@ -22,14 +22,14 @@
             <h1>n</h1>
           </kinesis-element>
         </kinesis-container>
-      </div>
+      </router-link>
 
       <div class="mobile-menu" v-if="mobileWidth">
         <Slide right width="300" closeOnNavigation>
           <a id="home" href="#" @click="menuItems">
-            <span><a>home</a></span>
-            <span><router-link to="/work">work</router-link></span>
-            <span><router-link to="/info">info</router-link></span>
+            <span><router-link to="/home"><h2>home</h2></router-link></span>
+            <span><router-link to="/work"><h2>work</h2></router-link></span>
+            <span><router-link to="/info"><h2>info</h2></router-link></span>
           </a>
         </Slide>
       </div>
@@ -65,22 +65,6 @@ export default {
       console.log(e.target.textContent);
       this.$emit("item", e);
     },
-
-    // toggleNavClass: function () {
-    //   if (this.active == false) {
-    //     return "nav";
-    //   }else {
-    //     const nav= document.querySelector('.desktop-menu nav');
-    //     const menuItems= document.querySelectorAll('.desktop-menu--item');
-    //     nav.style.top= 0;
-    //     nav.children[0].style.justifyContent = 'flex-end';
-    //     for(let item of menuItems){
-    //       item.children[0].style.color = 'white';
-    //     }
-    //     return "sticky-nav";
-    //   }
-    // },
-
   },
   mounted() {
     window.document.onscroll = () => {
@@ -109,15 +93,6 @@ export default {
       }
     });
   },
-  // updated(){ //VANAF MOBILE MENU NAAR DESKTOP MENU WERKT NIET. BLIJFT STEKEN OP MOBILE MENU
-  //   window.addEventListener("resize", () => { //HIER ZIT EEN GLITCH. ON LOAD GEEFT IE EERST ALTIJD EEN FRACTIE VAN EEN SECONDE HET MOBILE MENU
-  //     if (window.innerWidth > 624) {
-  //       this.mobileWidth = false;
-  //     } else if (window.innerWidth < 624) {
-  //       this.mobileWidth = true;
-  //     }
-  //   });
-  // }
 };
 </script>
 
@@ -125,6 +100,10 @@ export default {
 $text-color: #1212d4;
 $sticky-header-color: $text-color;
 $breakpoint-medium: 624px;
+
+// .router-link-active{
+//   text-decoration: none;
+// }
 
 .header-container {
   display: flex;
@@ -170,7 +149,6 @@ h3 {
   }
 }
 
-/* have to add the ID nav (#nav) otherwise the backgrnd color won't change as the previous background color is set in an ID and ID trumps class notation */
 #nav.sticky {
   transition: 150ms;
   background-color: $sticky-header-color;
@@ -180,8 +158,11 @@ h3 {
   z-index: 999;
    @media screen and (min-width: $breakpoint-medium){
     flex-direction: row;
-    h2{
+    h2,a{
       color: white;
+      .router-link-active{
+          text-decoration: underline;
+        }
     }
     .desktop-menu nav{
       top: 0;
@@ -215,8 +196,11 @@ h3 {
       li{
         margin: 0 1rem;
         a{
-          text-decoration: none;
+          // text-decoration: none;
           color: $text-color;
+        }
+        .router-link-active{
+          text-decoration: underline !important;
         }
       }
     }

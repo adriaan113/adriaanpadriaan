@@ -29,21 +29,7 @@ export default {
     MyFooter, 
   },
   methods:{
-    // irregularText: function(){
-    //         const ctaText = document.querySelector('.cta');
-    //         const string = ctaText.textContent;
-    //         ctaText.innerHTML = '';
-    //         string.split('').forEach(function(e){
-    //             const newCtaText = document.createElement('H2');
-    //             newCtaText.classList.add('cta');
-    //             newCtaText.style.display = 'inline';
-    //             // newCtaText.style.color = "#"+((1<<24)*Math.random()|0).toString(16)
-    //             newCtaText.style.fontSize = (Math.random() * (36 - 30) + 20) + 'px';
-    //             // newCtaText.style.transform = `rotate(${Math.floor(Math.random() * 50)}deg)`;
-    //             newCtaText.innerHTML = e;
-    //             ctaText.appendChild(newCtaText);
-    //         });
-    //     }
+  
   },
 
 }
@@ -52,6 +38,9 @@ export default {
 <style lang="scss">
 
 @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100;400;900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
 
 $text-color: #1212d4;
 $work-nav-btn: $text-color;
@@ -80,9 +69,19 @@ html{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
  
- 
-  
+ h1,h2,h3,h4,h5,h6{
   font-family: 'Catamaran', sans-serif;
+ }
+
+ p,small{
+  font-family: 'Montserrat', sans-serif;
+ }
+
+ a{
+   text-decoration: none;
+ }
+  
+  
   text-align: center;
   font-weight: 100;
   margin-top: 0;
@@ -134,6 +133,14 @@ html{
       }
     }
 
+#home{
+  a{
+    color: white;
+  }
+  .router-link-active{
+    text-decoration: underline;
+  }
+}
 
 
 </style>

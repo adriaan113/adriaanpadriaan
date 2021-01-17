@@ -46,11 +46,14 @@ Vue.use(VueKinesis);
 const routes = [
   { path: '/work', component: Work},
   { path: '/info', component: Info},
-  {path: '/', component:IntroGal}
+  {path: '/home', component:IntroGal}
 ]
 
 const router = new VueRouter({
-  routes : routes
+  routes : routes,
+  scrollBehavior () {
+  return { x: 0, y: 0, behavior: 'smooth' };
+}
 })
 
 
