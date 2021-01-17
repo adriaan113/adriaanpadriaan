@@ -1,74 +1,34 @@
 <template>
   <div id="app">
 
-    <my-header @item="showContent"></my-header>
+    <my-header></my-header>
 
-    <!-- <intro-gal v-if="isHome"></intro-gal> -->
-  
-    <div>
       <router-view></router-view> 
-    </div>
-    
-
+ 
     <my-footer></my-footer>
 
   </div>
 </template>
 
 <script>
-// import IntroGal from './components/IntroGal.vue'
+
 import MyFooter from './components/MyFooter.vue'
 import myHeader from './components/MyHeader.vue'
-// import Work from './components/Work.vue'
+
 
 
 export default {
   name: 'App',
   data(){
-    return {
-      showIntro: true,
-      // showInfo: false,
-      // showWork: false,
-    }
-    
+    return{     
+    }   
   },
   
   components: {
     myHeader,
-    // IntroGal,
-    MyFooter,
-    // Work,
-    
+    MyFooter, 
   },
   methods:{
-
-    showContent: function(e){
-      if(e.target.textContent === 'home'){
-        this.showIntro = true;
-        // this.showWork = false;
-        // this.showInfo = false;
-      }else if(e.target.textContent === 'work'){
-        this.showIntro = false;
-        // this.showWork = true;
-        // this.showInfo = false;
-
-      }else if(e.target.textContent === 'info'){
-        this.showIntro = false;
-        // this.showWork = false;
-        // this.showInfo = true;
-      }
-    },
-    // checkIfDivIsEmpty: function(){
-    //   const app = document.querySelector('#app');
-    //   const div = app.children[1];
-    //   if(div.children.length === 0){
-    //     console.log('leeg');
-    //   }else{
-    //     console.log('vol');
-    //   }
-    // },
-
-
     // irregularText: function(){
     //         const ctaText = document.querySelector('.cta');
     //         const string = ctaText.textContent;

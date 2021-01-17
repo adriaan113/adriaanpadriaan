@@ -1,7 +1,7 @@
 <template>
   <header class="header-container">
-    <div id="nav" :class="{ sticky: active }">
-      <div id="nav-container" :class="toggleNavClass()">
+    <div id="nav" :class="{sticky: active}">
+      <div id="nav-container">
         <kinesis-container class="name" tag="div">
           <kinesis-element :strength="10" tag="span" type="rotate" axis="x">
             <h1>A</h1>
@@ -42,6 +42,7 @@
          </ul>
        </nav>
       </div>
+
     </div>
   </header>
 </template>
@@ -64,20 +65,22 @@ export default {
       console.log(e.target.textContent);
       this.$emit("item", e);
     },
-    toggleNavClass: function () {
-      if (this.active == false) {
-        return "nav";
-      } else {
-        const nav= document.querySelector('.desktop-menu nav');
-        const menuItems= document.querySelectorAll('.desktop-menu--item');
-        nav.style.top= 0;
-        nav.children[0].style.justifyContent = 'flex-end';
-        for(let item of menuItems){
-          item.children[0].style.color = 'white';
-        }
-        return "sticky-nav";
-      }
-    },
+
+    // toggleNavClass: function () {
+    //   if (this.active == false) {
+    //     return "nav";
+    //   }else {
+    //     const nav= document.querySelector('.desktop-menu nav');
+    //     const menuItems= document.querySelectorAll('.desktop-menu--item');
+    //     nav.style.top= 0;
+    //     nav.children[0].style.justifyContent = 'flex-end';
+    //     for(let item of menuItems){
+    //       item.children[0].style.color = 'white';
+    //     }
+    //     return "sticky-nav";
+    //   }
+    // },
+
   },
   mounted() {
     window.document.onscroll = () => {
@@ -88,6 +91,14 @@ export default {
         this.active = false;
       }
     };
+
+     window.addEventListener("resize", () => { //HIER ZIT EEN GLITCH. ON LOAD GEEFT IE EERST ALTIJD EEN FRACTIE VAN EEN SECONDE HET MOBILE MENU
+      if (window.innerWidth > 624) {
+        this.mobileWidth = false;
+      } else if (window.innerWidth < 624) {
+        this.mobileWidth = true;
+      }
+    });
   },
   created() {
     window.addEventListener("load", () => {
@@ -98,15 +109,15 @@ export default {
       }
     });
   },
-  updated(){
-    window.addEventListener("resize", () => { //HIER ZIT EEN GLITCH. ON LOAD GEEFT IE EERST ALTIJD EEN FRACTIE VAN EEN SECONDE HET MOBILE MENU
-      if (window.innerWidth > 624) {
-        this.mobileWidth = false;
-      } else if (window.innerWidth < 624) {
-        this.mobileWidth = true;
-      }
-    });
-  }
+  // updated(){ //VANAF MOBILE MENU NAAR DESKTOP MENU WERKT NIET. BLIJFT STEKEN OP MOBILE MENU
+  //   window.addEventListener("resize", () => { //HIER ZIT EEN GLITCH. ON LOAD GEEFT IE EERST ALTIJD EEN FRACTIE VAN EEN SECONDE HET MOBILE MENU
+  //     if (window.innerWidth > 624) {
+  //       this.mobileWidth = false;
+  //     } else if (window.innerWidth < 624) {
+  //       this.mobileWidth = true;
+  //     }
+  //   });
+  // }
 };
 </script>
 
@@ -116,11 +127,9 @@ $sticky-header-color: $text-color;
 $breakpoint-medium: 624px;
 
 .header-container {
-  // background-color: burlywood;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  //   align-items: flex-end;
   align-items: center;
   margin-bottom: 4rem;
 }
@@ -171,6 +180,15 @@ h3 {
   z-index: 999;
    @media screen and (min-width: $breakpoint-medium){
     flex-direction: row;
+    h2{
+      color: white;
+    }
+    .desktop-menu nav{
+      top: 0;
+      ul{
+      justify-content: flex-end;
+    }
+    }
   }
   .name {
     transition: 0.3s;
