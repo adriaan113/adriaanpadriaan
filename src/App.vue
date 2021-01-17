@@ -3,13 +3,12 @@
 
     <my-header @item="showContent"></my-header>
 
-    <!-- <my-aside></my-aside> -->
-
-    <intro-gal @work="showMore" v-if="showIntro"></intro-gal>
+    <!-- <intro-gal v-if="isHome"></intro-gal> -->
   
-    <info v-if="showInfo"></info>
-
-    <work v-if="showWork"></work>
+    <div>
+      <router-view></router-view> 
+    </div>
+    
 
     <my-footer></my-footer>
 
@@ -17,52 +16,59 @@
 </template>
 
 <script>
-import IntroGal from './components/IntroGal.vue'
-// import MyAside from './components/MyAside.vue'
+// import IntroGal from './components/IntroGal.vue'
 import MyFooter from './components/MyFooter.vue'
 import myHeader from './components/MyHeader.vue'
-import Work from './components/Work.vue'
+// import Work from './components/Work.vue'
 
-// import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   data(){
     return {
       showIntro: true,
-      showInfo: false,
-      showWork: false,
+      // showInfo: false,
+      // showWork: false,
     }
     
   },
   
   components: {
     myHeader,
-    // MyAside,
-    IntroGal,
+    // IntroGal,
     MyFooter,
-    Work,
+    // Work,
     
   },
   methods:{
+
     showContent: function(e){
-      // console.log(e.target.textContent);
       if(e.target.textContent === 'home'){
         this.showIntro = true;
-        this.showWork = false;
-        this.showInfo = false;
+        // this.showWork = false;
+        // this.showInfo = false;
       }else if(e.target.textContent === 'work'){
-        // console.log('dit wordt de work page');
         this.showIntro = false;
-        this.showWork = true;
-        this.showInfo = false;
+        // this.showWork = true;
+        // this.showInfo = false;
 
       }else if(e.target.textContent === 'info'){
         this.showIntro = false;
-        this.showWork = false;
-        this.showInfo = true;
+        // this.showWork = false;
+        // this.showInfo = true;
       }
     },
+    // checkIfDivIsEmpty: function(){
+    //   const app = document.querySelector('#app');
+    //   const div = app.children[1];
+    //   if(div.children.length === 0){
+    //     console.log('leeg');
+    //   }else{
+    //     console.log('vol');
+    //   }
+    // },
+
+
     // irregularText: function(){
     //         const ctaText = document.querySelector('.cta');
     //         const string = ctaText.textContent;
@@ -78,13 +84,8 @@ export default {
     //             ctaText.appendChild(newCtaText);
     //         });
     //     }
-    showMore: function(){
-        this.showIntro = false;
-        this.showWork = true;
-        this.showInfo = false;
+  },
 
-    }
-  }
 }
 </script>
 
@@ -173,81 +174,6 @@ html{
       }
     }
 
-/***********CAROUSEL STYLES***********/
-
-//     .agile {
-//     width: 100%;
-
-//     &__actions{
-//         margin: 20px 4px 0;
-//         @media (min-width: $breakpoint-medium) {
-//           margin: 20px 3rem 0;
-//         }
-//     }
-		
-
-// 	&__nav-button{
-//     background: transparent;
-// 		border: none;
-// 		color: red;
-// 		cursor: pointer;
-// 		font-size: 24px;
-// 		transition-duration: .3s;
-//     // &--prev{
-//     //       border: 2px solid red;
-//     //     }
-// 		&:hover{
-//             color: #888;
-//         }
-//     }
-		
-
-// 	&__dot{
-//         margin: 0 10px;
-//     }
-		
-
-// 		button{
-//       background-color: $work-nav-btn;
-// 			border: none;
-// 			border-radius: 50%;
-// 			cursor: pointer;
-// 			display: block;
-// 			height: 15px;
-//       width: 15px;
-// 			font-size: 0;
-// 			line-height: 0;
-// 			margin: 0;
-// 			padding: 0;
-// 			transition-duration: .3s;
-//             &--current,
-//             &:hover{
-//                 button{
-//                     background-color: #888;
-//                 }  
-//             }             
-//         }	
-// }
-
-// .agile__nav-button--prev{
-//   background-color: white !important; //BETER MAKEN DIT
-//   width: 0 !important;
-//   height: 0 !important;
-//   border-radius: 0 !important;
-//   border-top: 10px solid transparent !important;
-//   border-right: 15px solid $secondary-color !important;
-//   border-bottom: 10px solid transparent !important;
-// }
-
-// .agile__nav-button--next{
-//   background-color: white !important; //BETER MAKEN DIT
-//   width: 0 !important;
-//   height: 0 !important;
-//   border-radius: 0 !important;
-//   border-top: 10px solid transparent !important;
-//   border-left: 15px solid $secondary-color !important;
-//   border-bottom: 10px solid transparent !important;
-// }
 
 
 </style>

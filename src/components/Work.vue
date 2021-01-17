@@ -33,9 +33,17 @@
                 >
                     <div class="is-selected" v-if="person.showMore">
                         <ul>
+                            <carousel :perPage="1">
+                                <slide>  
                             <li v-for="img in person.extraImg" :key="img.id">
+                            
+                                
                                 <img :src="img"  alt=""> 
+                                
+                            
                             </li>
+                            </slide>
+                            </carousel>
                         </ul>
                         <p class="story">{{person.story}}</p>
                     </div>
@@ -51,11 +59,15 @@
 <script>
 import gsap from 'gsap';
 
-//import { gsap } from "gsap";
+import {Carousel, Slide} from 'vue-carousel';
 
 
 export default {
 
+  components:{
+      Carousel,
+      Slide
+  },
   data() {
     return {
         work:[

@@ -28,17 +28,17 @@
         <Slide right width="300" closeOnNavigation>
           <a id="home" href="#" @click="menuItems">
             <span><a>home</a></span>
-            <span><a>work</a></span>
-            <span><a>info</a></span>
+            <span><router-link to="/work">work</router-link></span>
+            <span><router-link to="/info">info</router-link></span>
           </a>
         </Slide>
       </div>
 
       <div class="desktop-menu" v-else>
        <nav>
-         <ul>
-           <li class="desktop-menu--item"><a href="#"><h2>work</h2></a></li>
-           <li class="desktop-menu--item"><a href="#"><h2>info</h2></a></li>
+         <ul @click="menuItems">
+           <li class="desktop-menu--item"><router-link to="/work"><h2>work</h2></router-link></li>
+           <li class="desktop-menu--item"><router-link to="/info"><h2>info</h2></router-link></li>
          </ul>
        </nav>
       </div>

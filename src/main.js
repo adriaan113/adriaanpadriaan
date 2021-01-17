@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import App from './App.vue'
 
 import Header from './components/MyHeader.vue'
@@ -9,7 +10,7 @@ import Info from './components/Info.vue'
 import Footer from './components/MyFooter.vue'
 
 import VueKinesis from 'vue-kinesis'
-Vue.use(VueKinesis)
+
 
 import 'animate.css';
 
@@ -37,7 +38,23 @@ Vue.component('MyFooter',Footer)
 
 Vue.config.productionTip = false
 
+Vue.use(VueRouter);
+Vue.use(VueKinesis);
+
+
+
+const routes = [
+  { path: '/work', component: Work},
+  { path: '/info', component: Info},
+  {path: '/', component:IntroGal}
+]
+
+const router = new VueRouter({
+  routes : routes
+})
+
 
 new Vue({
   render: h => h(App),
+  router
 }).$mount('#app')
