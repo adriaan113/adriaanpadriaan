@@ -9,6 +9,7 @@
         </svg>
 
         <ul class="work-gallery">
+
             <li v-for="person in work" 
             :key="person.name" 
             class="work-gallery--item" 
@@ -32,19 +33,15 @@
                 :css="false"
                 >
                     <div class="is-selected" v-if="person.showMore">
-                        <ul>
-                            <carousel :perPage="1">
-                                <slide>  
-                            <li v-for="img in person.extraImg" :key="img.id">
-                            
-                                
-                                <img :src="img"  alt=""> 
-                                
-                            
-                            </li>
+                     
+                            <carousel :perPage="1" :scrollPerPage="false">
+                                <slide v-for="img in person.extraImg" :key="img.id">  
+                         
+                            <img :src="img"  alt=""> 
+
                             </slide>
                             </carousel>
-                        </ul>
+                     
                         <p class="story">{{person.story}}</p>
                     </div>
                 </transition>   
@@ -168,8 +165,14 @@ export default {
             person.hover = !person.hover;
             
         },
+        preventClosing: function(person){
+            
+            console.log(person.name);
+      
+        },
         showMoreOnClick: function(person){
-            person.showMore = !person.showMore;
+            // person.showMore = !person.showMore;
+            person.showMore = true;
         },
         beforeOpen: function (el){
             el.style.transform ='scaleY(0)';
@@ -211,19 +214,19 @@ $ternary-color: greenyellow;
     }   
 }
 
-.is-selected{
-    ul{
-        list-style: none;
-        padding: 0;
-        display: flex;
-        li{
-            margin: 1rem .5rem;
-            img{
-                width: 100%;
-            }
-        }
-    } 
-}
+// .is-selected{
+//     ul{
+//         list-style: none;
+//         padding: 0;
+//         display: flex;
+//         li{
+//             margin: 1rem .5rem;
+//             img{
+//                 width: 100%;
+//             }
+//         }
+//     } 
+// }
 
 .story{
     background-color: white;
