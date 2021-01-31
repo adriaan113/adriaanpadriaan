@@ -232,6 +232,8 @@ $ternary-color: greenyellow;
         padding: 0;
         max-width: 1200px;
         &--item{
+            max-width: 100%;
+            margin: 0 auto;
             cursor: pointer;
         }
     }   
@@ -297,10 +299,15 @@ svg{
 .slick-slider{
   width: 100vw;
   margin-bottom: 3rem;
+  @media(min-width: 1200px){
+      width: auto;
+  }
 }
 
 .slide{
     width: 80% !important;
+    max-width: 800px !important;
+    margin: 0 auto;
     img{
         width: 100%;
         margin: 0 auto;
