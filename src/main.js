@@ -24,11 +24,6 @@ library.add(faUserSecret)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
-
-
-
-
-
 Vue.component('MyHeader', Header);
 Vue.component('MyAside', Aside);
 Vue.component('IntroGal', IntroGal);

@@ -34,13 +34,19 @@
                 >
                     <div class="is-selected" v-if="person.showMore">
                      
-                            <carousel :perPage="1" :scrollPerPage="false">
+                            <!-- <carousel :perPage="1" :scrollPerPage="false">
                                 <slide v-for="img in person.extraImg" :key="img.id">  
                          
                             <img :src="img"  alt=""> 
 
                             </slide>
-                            </carousel>
+                            </carousel> -->
+
+                           <VueSlickCarousel v-bind="settings">
+                            <div class="slide" v-for="img in person.extraImg" :key="img.id"> 
+                                <img :src="img"  alt="">     
+                            </div>
+                           </VueSlickCarousel>
                      
                         <p class="story">{{person.story}}</p>
                     </div>
@@ -56,17 +62,34 @@
 <script>
 import gsap from 'gsap';
 
-import {Carousel, Slide} from 'vue-carousel';
+
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+// optional style for arrows & dots
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+
+
 
 
 export default {
 
   components:{
-      Carousel,
-      Slide
+    //   Carousel,
+    //   Slide,
+    VueSlickCarousel
+   
   },
   data() {
     return {
+        settings:{
+            dots: true,
+            dotsClass: "slick-dots custom-dot-class",
+            edgeFriction: 0.35,
+            infinite: false,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        },
         work:[
             {
                 name: 'Ronnie Flex',
@@ -189,7 +212,7 @@ export default {
  }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 $text-color: #1212d4;
 $secondary-color: #ff005d;
@@ -269,6 +292,37 @@ svg{
     path{
         fill:greenyellow;
     } 
+}
+
+.slick-slider{
+  width: 100vw;
+  margin-bottom: 3rem;
+}
+
+.slide{
+    width: 80% !important;
+    img{
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+.slick-prev{
+    left: 1rem;
+    transform: scale(2);
+    z-index: 999;
+    &::before{
+        color: yellowgreen;
+    }
+}
+
+.slick-next{
+    // background-color: red;
+    transform: scale(2);
+    right: 1rem;
+    &::before{
+        color: yellowgreen;
+    }
 }
 
 </style>
