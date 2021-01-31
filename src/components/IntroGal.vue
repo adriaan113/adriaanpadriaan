@@ -121,10 +121,22 @@ h2{
     }
 }
 
+//  .hover-img{
+//     position: absolute;
+//     width: 150px;
+//     z-index: 2;
+// }
+
  .hover-img{
     position: absolute;
-    width: 150px;
+    width: 30vw;
     z-index: 2;
+     @media(min-width: 930px){
+    width: 20vw;
+    }
+     @media(min-width: 1700px){
+    width: 10vw;
+    }
 }
 
 .cta{

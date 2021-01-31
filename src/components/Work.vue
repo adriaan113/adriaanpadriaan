@@ -14,15 +14,14 @@
             :key="person.name" 
             class="work-gallery--item" 
             :class="{bigger: person.hover}" 
-            @click="showMoreOnClick(person)" 
-            @mouseover="hoverName(person)" 
+            @mouseenter="hoverName(person)" 
             @mouseleave="person.hover=false"
             >
                 
-                <p class="job">{{person.job}}</p>
-                <h2 class="name">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
+                <p class="job"  @mouseenter="person.hover=true">{{person.job}}</p>
+                <h2 class="name" @click="showMoreOnClick(person)"  @mouseenter="person.hover=true">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
 
-                <div v-show="person.hover" class="animate__animated">
+                <div v-show="person.hover" class="animate__animated" :class="person.animate">
                     <img :src="person.thumb" alt="" class="hover-thumb" :class="{'hide-thumb': person.showMore}" :style="{top:person.top, left:person.left}">
                 </div>
                 
@@ -33,22 +32,12 @@
                 :css="false"
                 >
                     <div class="is-selected" v-if="person.showMore">
-                     
-                            <!-- <carousel :perPage="1" :scrollPerPage="false">
-                                <slide v-for="img in person.extraImg" :key="img.id">  
-                         
-                            <img :src="img"  alt=""> 
-
-                            </slide>
-                            </carousel> -->
-
-                           <VueSlickCarousel v-bind="settings">
-                            <div class="slide" v-for="img in person.extraImg" :key="img.id"> 
-                                <img :src="img"  alt="">     
-                            </div>
-                           </VueSlickCarousel>
-                     
-                        <p class="story">{{person.story}}</p>
+                        <VueSlickCarousel v-bind="settings">
+                        <div class="slide" v-for="img in person.extraImg" :key="img.id"> 
+                            <img :src="img"  alt="">     
+                        </div>
+                        </VueSlickCarousel>
+                    <p class="story">{{person.story}}</p>
                     </div>
                 </transition>   
 
@@ -68,14 +57,11 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
-
-
+import work from './data.js';
 
 export default {
 
   components:{
-    //   Carousel,
-    //   Slide,
     VueSlickCarousel
    
   },
@@ -89,113 +75,27 @@ export default {
             speed: 500,
             slidesToShow: 1,
             slidesToScroll: 1
-        },
-        work:[
-            {
-                name: 'Ronnie Flex',
-                job: 'rapper',
-                story: 'Mr. flex at home in Rotterdam. As you can see there’s a freshly made plate of pasta on the table. After the pictures he offered me some. Good sauce!',
-                thumb: require('../assets/ronnieFlex1.jpg'),
-                extraImg: [require('../assets/ronnieFlex2.jpg'),require('../assets/ronnieFlex1.jpg')],
-                hover: false,
-                showMore: false
             },
-            {
-                name: 'Claudia Cardinale',
-                job: 'moviestar',
-                story: 'is an true diva. In the best sense of the word.',
-                thumb: require('../assets/claudiaCardinale1.jpg'),
-                hover: false,
-                showMore: false
-            },
-            {
-                name: 'Theo Heuft',
-                job: 'in these pictures...',
-                story: "...you see Theo Heuft. Theo was the owner of a an establishment called Yab Yum. A well known brothel in Amsterdam. Theo has a thousand stories from that time. He told them all when i visited him in France for the Volkskrant. His wife started a Bed&Breakfast there. He's bored out of his mind.",
-                thumb: require('../assets/theoHeuft1.jpg'),
-                hover: false,
-                showMore: false,
-            },
-            {
-                name: 'Maarten Spruyt',
-                job: 'stylist',
-                story: 'favorite color appears to green. Both his house and his wardrobe was full of it. Quite remarkable. Besides that he’s also a really nice and talented guy.',
-                thumb: require('../assets/maartenSpruyt1.jpg'),
-                hover: false,
-                showMore: false
-            },
-            {
-                name: 'Fien Troch',
-                job: 'Director',
-                story: 'in her hotel room during the Rotterdam film festival.',
-                thumb: require('../assets/fienTroch1.jpg'),
-                hover: false,
-                showMore: false
-            },
-             {
-                name: 'Sien Troch',
-                job: 'Director',
-                story: 'in her hotel room during the Rotterdam film festival.',
-                thumb: require('../assets/fienTroch1.jpg'),
-                hover: false,
-                showMore: false
-            },
-             {
-                name: 'Pien Troch',
-                job: 'Director',
-                story: 'in her hotel room during the Rotterdam film festival.',
-                thumb: require('../assets/fienTroch1.jpg'),
-                hover: false,
-                showMore: false
-            },
-             {
-                name: 'Kien Troch',
-                job: 'Director',
-                story: 'in her hotel room during the Rotterdam film festival.',
-                thumb: require('../assets/fienTroch1.jpg'),
-                hover: false,
-                showMore: false
-            },
-             {
-                name: 'Lien Troch',
-                job: 'Director',
-                story: 'in her hotel room during the Rotterdam film festival.',
-                thumb: require('../assets/fienTroch1.jpg'),
-                hover: false,
-                showMore: false
-            },
-             {
-                name: 'Vien Troch',
-                job: 'Director',
-                story: 'in her hotel room during the Rotterdam film festival.',
-                thumb: require('../assets/fienTroch1.jpg'),
-                hover: false,
-                showMore: false
-            }
-        ]
+            work: work.data
         }
     },
     methods:{
-
-        // deleteHoverImgWhenOpen: function(person){
-        //     if(person.showMore){
-        //         return person.hover = false;
-        //     }
-            
-        // },
-
-        hoverName:function(person){
-            person.hover = !person.hover;
-            
+        checkOpenLi: function(){
+            for(let i=0;i<this.work.length;i++){
+                //console.log(test[i].showMore);
+                this.work[i].showMore = false;
+            }
         },
-        preventClosing: function(person){
-            
+        hoverName:function(person){
+            person.hover = !person.hover; 
+        },
+        preventClosing: function(person){ 
             console.log(person.name);
-      
         },
         showMoreOnClick: function(person){
-            // person.showMore = !person.showMore;
-            person.showMore = true;
+            this.checkOpenLi();
+            person.showMore = !person.showMore;
+            //person.showMore = true;
         },
         beforeOpen: function (el){
             el.style.transform ='scaleY(0)';
@@ -208,8 +108,48 @@ export default {
         leaveProject: function(el, done) {
             gsap.to(el,{duration:.3, scaleY:0,onComplete: done});
         },
+        pushAnimation: function(){
+            for(let i=0;i<this.work.length;i++){   
+                this.work[i].animate = this.calculateAnimation();
+                this.work[i].top = `-${this.calculateTop()}px`;
+                this.work[i].left = `${this.calculateLeft()}px`;
+            }
+        },
+        calculateAnimation: function(){
+            const animation1 = 'animate__bounceInLeft';
+            const animation2 = 'animate__fadeInUp';
+            const animation3 = 'animate__jello';
+            const animation4 = 'animate__bounceInRight';
+            const x = Math.floor(Math.random() * 4);
+
+            switch(x){
+                case 0:
+                    return animation1;   
+                case 1:
+                    return animation2;     
+                case 2:
+                    return animation3;     
+                case 3:
+                    return animation4;             
+                default:
+                    console.log('hahhahaah');
+            }
+        },
+        calculateTop: function(){
+            const top = Math.floor(Math.random() * 100);
+            console.log(top);
+            return top;
+        },
+        calculateLeft: function(){
+            const left = Math.floor(Math.random() * 100);
+            console.log(left);
+            return left;
+        }
     },
- }
+    mounted(){
+        this.pushAnimation();
+    },
+}
 </script>
 
 <style lang="scss">
@@ -217,6 +157,9 @@ export default {
 $text-color: #1212d4;
 $secondary-color: #ff005d;
 $ternary-color: greenyellow;
+
+// $breakpoint-large: 1024px;
+$breakpoint-large: 1200px;
 
 
 @mixin shadow-text($x,$y){
@@ -232,36 +175,49 @@ $ternary-color: greenyellow;
         padding: 0;
         max-width: 1200px;
         &--item{
-            max-width: 100%;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
             cursor: pointer;
         }
     }   
 }
 
-// .is-selected{
-//     ul{
-//         list-style: none;
-//         padding: 0;
-//         display: flex;
-//         li{
-//             margin: 1rem .5rem;
-//             img{
-//                 width: 100%;
-//             }
-//         }
-//     } 
-// }
+.name{
+    margin: 0 auto;
+    font-size: 8vw;
+    display: flex;
+    justify-content: center;
+    color: $text-color;
+    @media(min-width: $breakpoint-large){
+        font-size: 6.5rem;
+    }
+}
+
+.is-selected{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    @media(min-width: $breakpoint-large){
+        display: block;
+    }
+}
 
 .story{
     background-color: white;
     border: 2px solid $text-color;
     position: relative;
     box-shadow: 5px 5px $ternary-color;
-    margin:  1rem .5rem;
+    margin:  1rem;
     padding: 1.5rem;
     text-align: left;
     z-index: 1;
+    width: fit-content;
+    text-align: center;
+    @media(min-width: $breakpoint-large){
+        margin: 1rem auto;
+    }
 }
 
 .job{
@@ -270,13 +226,20 @@ $ternary-color: greenyellow;
     font-size: 1rem;
     font-weight: lighter;
     text-transform: uppercase;
+    z-index: -1;
     @include shadow-text(1px,1px);
 }
 
 .hover-thumb{
     position: absolute;
-    width: 150px;
+    width: 30vw;
     z-index: 2;
+    @media(min-width: 930px){
+    width: 20vw;
+    }
+     @media(min-width: 1700px){
+    width: 10vw;
+    }
 }
 
 .hide-thumb{
@@ -292,14 +255,14 @@ svg{
     z-index: -1;
     opacity: .2;
     path{
-        fill:greenyellow;
+        fill:$ternary-color;
     } 
 }
 
 .slick-slider{
   width: 100vw;
   margin-bottom: 3rem;
-  @media(min-width: 1200px){
+  @media(min-width: $breakpoint-large){
       width: auto;
   }
 }
@@ -311,6 +274,9 @@ svg{
     img{
         width: 100%;
         margin: 0 auto;
+        @media(min-width: $breakpoint-large){
+            width: 60%;
+        }
     }
 }
 
@@ -319,7 +285,10 @@ svg{
     transform: scale(2);
     z-index: 999;
     &::before{
-        color: yellowgreen;
+        color: $secondary-color;
+    }
+     @media(min-width: $breakpoint-large){
+       left: 10rem; 
     }
 }
 
@@ -328,7 +297,10 @@ svg{
     transform: scale(2);
     right: 1rem;
     &::before{
-        color: yellowgreen;
+        color: $secondary-color;
+    }
+    @media(min-width: $breakpoint-large){
+       right: 10rem; 
     }
 }
 

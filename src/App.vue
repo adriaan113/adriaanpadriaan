@@ -49,6 +49,8 @@ $ternary-color: greenyellow;
 
 $breakpoint-medium: 624px;
 
+$breakpoint-large: 1024px;
+
 
 html{
   scroll-behavior: smooth;

@@ -2,7 +2,7 @@
   <header class="header-container">
     <div id="nav" :class="{sticky: active}">
       <router-link to="/home">
-        <kinesis-container class="name" tag="div">
+        <kinesis-container class="adriaan" tag="div">
           <kinesis-element :strength="10" tag="span" type="rotate" axis="x">
             <h1>A</h1>
           </kinesis-element>
@@ -113,7 +113,7 @@ $breakpoint-medium: 624px;
   margin-bottom: 4rem;
 }
 
-.name {
+.adriaan {
   margin: 0 auto;
   font-size: 8vw;
   display: flex;
@@ -129,7 +129,7 @@ h3 {
 }
 
 .nav {
-  .name {
+  .adriaan {
     transition: 0.5s;
   }
 }
@@ -171,7 +171,7 @@ h3 {
     }
     }
   }
-  .name {
+  .adriaan {
     transition: 0.3s;
     font-size: 1rem;
     margin-left: 1.5rem;
