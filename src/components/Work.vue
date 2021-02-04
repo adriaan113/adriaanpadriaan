@@ -59,6 +59,8 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 import work from './data.js';
 
+// import {eventBus} from '../main';
+
 export default {
 
   components:{
@@ -76,10 +78,13 @@ export default {
             slidesToShow: 1,
             slidesToScroll: 1
             },
-            work: work.data
+        work: work.data
         }
     },
     methods:{
+        // eventBusTest: function(){
+        //     eventBus.$emit('satan' ,this.work);
+        // },
         checkOpenLi: function(){
             for(let i=0;i<this.work.length;i++){
                 //console.log(test[i].showMore);
@@ -137,18 +142,21 @@ export default {
         },
         calculateTop: function(){
             const top = Math.floor(Math.random() * 100);
-            console.log(top);
+            // console.log(top);
             return top;
         },
         calculateLeft: function(){
             const left = Math.floor(Math.random() * 100);
-            console.log(left);
+            // console.log(left);
             return left;
         }
     },
     mounted(){
         this.pushAnimation();
     },
+    // created(){
+    //     this.eventBusTest();
+    // }
 }
 </script>
 

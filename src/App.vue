@@ -15,12 +15,13 @@
 import MyFooter from './components/MyFooter.vue'
 import myHeader from './components/MyHeader.vue'
 
-
+import work from './components/data.js';
 
 export default {
   name: 'App',
   data(){
-    return{     
+    return{  
+        work: work.data 
     }   
   },
   

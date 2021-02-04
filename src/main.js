@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 
+
 import Header from './components/MyHeader.vue'
 import Aside from './components/MyAside.vue'
 import IntroGal from './components/IntroGal.vue'
@@ -50,7 +51,6 @@ const router = new VueRouter({
   return { x: 0, y: 0, behavior: 'smooth' };
 }
 })
-
 
 new Vue({
   render: h => h(App),
