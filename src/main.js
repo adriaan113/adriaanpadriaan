@@ -11,6 +11,9 @@ import Info from './components/Info.vue'
 import Footer from './components/MyFooter.vue'
 
 import VueKinesis from 'vue-kinesis'
+import { VLazyImagePlugin } from "v-lazy-image";
+ 
+
 
 
 import 'animate.css';
@@ -36,6 +39,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter);
 Vue.use(VueKinesis);
+Vue.use(VLazyImagePlugin);
 
 
 

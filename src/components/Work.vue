@@ -22,7 +22,7 @@
                 <h2 class="name" @click="showMoreOnClick(person)"  @mouseenter="person.hover=true">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
 
                 <div v-show="person.hover" class="animate__animated" :class="person.animate">
-                    <img :src="person.thumb" alt="" class="hover-thumb" :class="{'hide-thumb': person.showMore}" :style="{top:person.top, left:person.left}">
+                    <v-lazy-image :src="person.thumb" alt="" class="hover-thumb" :class="{'hide-thumb': person.showMore}" :style="{top:person.top, left:person.left}"/>
                 </div>
                 
                 <transition 
@@ -34,7 +34,7 @@
                     <div class="is-selected" v-if="person.showMore">
                         <VueSlickCarousel v-bind="settings">
                         <div class="slide" v-for="img in person.extraImg" :key="img.id"> 
-                            <img :src="img"  alt="">     
+                            <v-lazy-image :src="img"  alt=""/>     
                         </div>
                         </VueSlickCarousel>
                     <p class="story">{{person.story}}</p>
@@ -310,6 +310,15 @@ svg{
     @media(min-width: $breakpoint-large){
        right: 10rem; 
     }
+}
+
+.v-lazy-image {
+  filter: blur(10px);
+  transition: filter 0.7s;
+}
+
+.v-lazy-image-loaded {
+  filter: blur(0);
 }
 
 </style>
