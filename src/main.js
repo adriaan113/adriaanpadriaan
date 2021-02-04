@@ -12,8 +12,20 @@ import Footer from './components/MyFooter.vue'
 
 import VueKinesis from 'vue-kinesis'
 import { VLazyImagePlugin } from "v-lazy-image";
- 
 
+
+// var isTouchDevice = require('is-touch-device');
+// var assert = require('assert');
+
+// assert.strictEqual(typeof isTouchDevice(), 'boolean');
+
+function isTouchDevice() {
+  return (('ontouchstart' in window) ||
+     (navigator.maxTouchPoints > 0) ||
+     (navigator.msMaxTouchPoints > 0));
+}
+
+console.log(isTouchDevice());
 
 
 import 'animate.css';

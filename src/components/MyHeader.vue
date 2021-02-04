@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import gsap from 'gsap';
 import { Slide } from "vue-burger-menu";
 
 export default {
@@ -61,6 +62,36 @@ export default {
     };
   },
   methods: {
+    isTouchDevice: function() {
+      return (('ontouchstart' in window) ||
+      (navigator.maxTouchPoints > 0) ||
+      (navigator.msMaxTouchPoints > 0));
+    },
+    animateOnTouchDevice: function(){
+      if(this.isTouchDevice()){
+        console.log('dit is een touchscreen');
+        const h1 = document.querySelectorAll('h1');
+        const h2 = document.querySelector('h2');
+        for(let i= 0;i<h1.length;i++){
+          if(i===0){
+            gsap.to(h1[i],{duration:1, rotation:10, repeat: -1, yoyo:true, delay:1, repeatDelay:4});
+          }else if(i===1){
+            gsap.to(h1[i],{duration:0.8, rotateY:30,repeat: -1, yoyo:true, repeatDelay:4});
+          }else if(i===2){
+            gsap.to(h1[i],{duration:0.6, rotateY:-20, rotation: -10, scale: 0.8,repeat: -1, yoyo:true, repeatDelay:1});
+          }else if(i===3){
+            gsap.to(h1[i],{duration:0.4, y:-3, scale: 1.1,repeat: -1, yoyo:true, delay: 2, repeatDelay:6});
+          }else if(i===4){
+            gsap.to(h1[i],{duration:0.7, y:5,repeat: -1, rotateY:-20, skewX: -10, yoyo:true, delay: 4, repeatDelay:5});
+          }
+        }
+        gsap.to(h2,{duration:1,y:7,scale:0.8,yoyo:true,delay:0.3,repeatDelay:5,skewY:5});
+        
+
+      }else{
+        console.log('dit is geen touchscreen');
+      }
+    },
     menuItems: function (e) {
       console.log(e.target.textContent);
       this.$emit("item", e);
@@ -83,6 +114,7 @@ export default {
         this.mobileWidth = true;
       }
     });
+    this.animateOnTouchDevice();
   },
   created() {
     window.addEventListener("load", () => {
@@ -92,7 +124,9 @@ export default {
         this.mobileWidth = true;
       }
     });
-  },
+    // console.log(this.isTouchDevice());
+    
+  }
 };
 </script>
 

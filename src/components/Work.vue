@@ -82,12 +82,8 @@ export default {
         }
     },
     methods:{
-        // eventBusTest: function(){
-        //     eventBus.$emit('satan' ,this.work);
-        // },
         checkOpenLi: function(){
             for(let i=0;i<this.work.length;i++){
-                //console.log(test[i].showMore);
                 this.work[i].showMore = false;
             }
         },
@@ -100,7 +96,6 @@ export default {
         showMoreOnClick: function(person){
             this.checkOpenLi();
             person.showMore = !person.showMore;
-            //person.showMore = true;
         },
         beforeOpen: function (el){
             el.style.transform ='scaleY(0)';
@@ -154,9 +149,6 @@ export default {
     mounted(){
         this.pushAnimation();
     },
-    // created(){
-    //     this.eventBusTest();
-    // }
 }
 </script>
 
@@ -314,7 +306,7 @@ svg{
 
 .v-lazy-image {
   filter: blur(10px);
-  transition: filter 0.7s;
+  transition: filter 0.3s;
 }
 
 .v-lazy-image-loaded {
