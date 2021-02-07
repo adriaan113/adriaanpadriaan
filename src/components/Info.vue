@@ -12,30 +12,7 @@
         <div class="eyes">
           <img :src="eyeLeft" alt="" class="eye left" />
           <img :src="eyeRight" alt="" class="eye right" />
-        </div>
-
-        <!-- <div class="blush-container">
-
-            <svg viewBox="0 0 296 296" xmlns="http://www.w3.org/2000/svg" class="blush-left">
-                <defs>
-                    <filter x="-63.7%" y="-63.7%" width="227.4%" height="227.4%" filterUnits="objectBoundingBox" id="a">
-                    <feGaussianBlur stdDeviation="31" in="SourceGraphic"/>
-                    </filter>
-                </defs>
-                <circle fill="#E90404" filter="url(#a)" cx="148" cy="148" r="73" fill-rule="evenodd"/>
-            </svg>
-
-            <svg viewBox="0 0 296 296" xmlns="http://www.w3.org/2000/svg" class="blush-right">
-                <defs>
-                    <filter x="-63.7%" y="-63.7%" width="227.4%" height="227.4%" filterUnits="objectBoundingBox" id="a">
-                    <feGaussianBlur stdDeviation="31" in="SourceGraphic"/>
-                    </filter>
-                </defs>
-                <circle fill="#E90404" filter="url(#a)" cx="148" cy="148" r="73" fill-rule="evenodd"/>
-            </svg>
-
-        </div> -->
-        
+        </div>        
 
         <svg
           viewBox="0 0 37 0"
@@ -144,6 +121,22 @@ export default {
     };
   },
   methods: {
+     isTouchDevice: function() {
+      return (('ontouchstart' in window) ||
+      (navigator.maxTouchPoints > 0) ||
+      (navigator.msMaxTouchPoints > 0));
+    },
+    animateOnTouchDevice: function(){
+      if(this.isTouchDevice()){
+        console.log('dit is een touchscreen');
+        const eyeLeft = document.querySelector('.left');
+        const eyeRight = document.querySelector('.right');
+        const randomNumber = Math.floor(Math.random() * 100) + Math.floor(Math.random() * 200);
+        
+        gsap.to(eyeLeft,{duration:1, rotation: randomNumber, repeat: -1, yoyo:true, delay:1,repeatDelay:3});
+        gsap.to(eyeRight,{duration:1, rotation: randomNumber, repeat: -1, yoyo:true, delay:1,repeatDelay:3});
+      }
+    },
     eyeMove: function(e) {
       const eyes = document.querySelectorAll(".left, .right");
 
@@ -177,24 +170,11 @@ export default {
       }, 6000);
     },
 
-    // makeMeBlush: function(){
-
-    //     const cheeks= document.querySelector('.blush-container');
-
-    //     const tl = gsap.timeline({repeat: -1, repeatDelay: 5, delay: 10});
-
-    //     cheeks.style.opacity = 0;
-
-    //     tl.to(cheeks, {duration: 3, opacity: 1, delay: 10});
-    //     tl.to(cheeks, {duration: 3, opacity: 0, delay: 5});
-    // },
-
     floatingHead: function(){
       const head= document.querySelector('.portrait');
       const shadow=document.querySelector('.face-shadow');
       const tl = gsap.timeline();
-      
-
+    
       tl.to(head,{y:"random(-10, 10)",duration:1,repeat:-1,yoyo:true, rotation:"random(-5, 5)",repeatRefresh:true,});
       tl.to(shadow,{scale:1.1,duration:1,repeat:-1,yoyo:true,repeatRefresh:true});
 
@@ -221,6 +201,7 @@ export default {
     this.tongue();
     this.floatingHead();
     this.irregularText();
+    this.animateOnTouchDevice();
     //this.makeMeBlush();
   }
 };
@@ -274,9 +255,11 @@ export default {
 
   #tong {
     position: absolute;
-    top: 81%;
+    top: 82%;
     left: 45%;
     width: 9%;
+    z-index: 999;
+    opacity: 1;
   }
 
 .blush-container{

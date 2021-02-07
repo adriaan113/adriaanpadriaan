@@ -254,9 +254,9 @@ svg{
     left: 30%;
     z-index: -1;
     opacity: .2;
-    path{
-        fill:$ternary-color;
-    } 
+    // path{
+    //     fill:$ternary-color;
+    // } 
 }
 
 .slick-slider{
