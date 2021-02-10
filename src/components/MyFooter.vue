@@ -19,7 +19,7 @@ $text-color: #1212d4;
 
 footer{
     background-color: $text-color;
-    margin-top: 100%;
+    //margin-top: 10%;
     width: 110%;
     padding: 1rem 0;
     small{

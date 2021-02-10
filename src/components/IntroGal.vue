@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="intro-container">
         <h2>fotografeerde bijvoorbeeld...</h2>
         <ul id="intro-gal" class="intro-gallery">
 
@@ -196,10 +196,15 @@ h2{
     color: $text-color;
 }
 
+.intro-container{
+    flex: 1;
+}
+
 .intro-gallery{
-    background-color: white;
+    background-color: transparent;
     list-style: none;
     padding: 0;
+    height: 100%;
     .intro-gallery--item{
         // position: relative;
         a{

@@ -210,7 +210,8 @@ export default {
 <style lang="scss" scoped>
 
 .info {
-  background-color: white;
+  flex: 1;
+  background-color: transparent;
 
   .about-me {
     display: flex;
@@ -281,7 +282,7 @@ export default {
   width:80px;
   height: 30px;
   background-color: lighten(lightgray,5%);
-  z-index: 999;
+  z-index: 995;
   margin-top: -80px;
   border-radius: 40%;
   filter: blur(6px);
