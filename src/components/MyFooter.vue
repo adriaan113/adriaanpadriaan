@@ -16,12 +16,18 @@
 <style lang="scss" scoped>
 
 $text-color: #1212d4;
+$breakpoint-medium: 624px;
 
 footer{
     background-color: $text-color;
-    //margin-top: 10%;
+    // margin-top: 10vh;
+    // margin-bottom: -4rem;
+    margin-bottom: -1rem;
     width: 110%;
-    padding: 1rem 0;
+    padding: 1.5rem 0;
+    @media(min-width: $breakpoint-medium){
+        margin-bottom: -3.2rem;
+    }
     small{
         display: block;
         color: white;

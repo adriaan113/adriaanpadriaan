@@ -33,7 +33,7 @@
                 <p class="job"  @mouseenter="person.hover=true">{{person.job}}</p>
                 <h2 class="name" @click="showMoreOnClick(person)"  @mouseenter="person.hover=true">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
 
-                <div v-show="person.hover" class="animate__animated" :class="person.animate" @click="touchClick(person)">
+                <div v-show="person.hover" class="animate__animated" :class="person.animate" @click="showMoreOnClick(person)">
                     <v-lazy-image :src="person.thumb" alt="" class="hover-thumb" :class="{'hide-thumb': person.showMore}" :style="{top:person.top, left:person.left}"/>
                 </div>
                 
@@ -94,11 +94,11 @@ export default {
         }
     },
     methods:{
-        isTouchDevice: function() {
-            return (('ontouchstart' in window) ||
-            (navigator.maxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0));
-            },
+        // isTouchDevice: function() {
+        //     return (('ontouchstart' in window) ||
+        //     (navigator.maxTouchPoints > 0) ||
+        //     (navigator.msMaxTouchPoints > 0));
+        //     },
         checkOpenLi: function(){
             for(let i=0;i<this.work.length;i++){
                 this.work[i].showMore = false;
@@ -111,18 +111,18 @@ export default {
             console.log(person.name);
         },
         showMoreOnClick: function(person){
-            if(this.isTouchDevice()){
-                console.log('oeoeoe');
-                //person.showMore = false;
-            }else if(!this.isTouchDevice()){
+            // if(this.isTouchDevice()){
+            //     console.log('oeoeoe');
+            //     //person.showMore = false;
+            // }else if(!this.isTouchDevice()){
                 this.checkOpenLi();
                 person.showMore = !person.showMore;
-            }
+            //}
         },
-        touchClick: function(person){
-            person.showMore = true;
-            console.log('een twee drie');
-        },
+        // touchClick: function(person){
+        //     person.showMore = true;
+        //     console.log('een twee drie');
+        // },
         beforeOpen: function (el){
             el.style.transform ='scaleY(0)';
             el.style.transformOrigin ='top';

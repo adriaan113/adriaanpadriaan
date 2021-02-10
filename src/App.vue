@@ -120,14 +120,11 @@ html{
   align-items: center;
   justify-content: flex-start;
 
-  // min-height: 100%;
-  // display: grid;
-  // grid-template-rows: 1fr auto;
-
   text-align: center;
   font-weight: 100;
   margin-top: 0;
   min-height: 100vh;
+  width: 100%;
  
  h1,h2,h3,h4,h5,h6{
   font-family: 'Catamaran', sans-serif;
@@ -140,11 +137,6 @@ html{
  a{
    text-decoration: none;
  }
-
-//  footer {
-//   grid-row: -1;
-//   justify-self: center;
-//   }
 }
 
 
@@ -228,10 +220,5 @@ html{
     }
 }
 
-// .intro-gallery,
-// .work-gallery,
-// .info{
-//   flex: 1;
-// }
 
 </style>

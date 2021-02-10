@@ -190,18 +190,20 @@ h3 {
   justify-content: flex-start;
   height: 60px;
   z-index: 999;
+  //padding-top: 1.4rem;
    @media screen and (min-width: $breakpoint-medium){
     flex-direction: row;
     h2,a{
       color: white;
       .router-link-active{
           text-decoration: underline;
-        }
+      }
     }
     .desktop-menu nav{
       top: 0;
       ul{
       justify-content: flex-end;
+      
     }
     }
   }

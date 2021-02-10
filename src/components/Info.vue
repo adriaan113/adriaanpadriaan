@@ -209,6 +209,8 @@ export default {
 
 <style lang="scss" scoped>
 
+$breakpoint-medium: 624px;
+
 .info {
   flex: 1;
   background-color: transparent;
@@ -228,7 +230,7 @@ export default {
 
     .portrait {
       position: relative;
-      margin-bottom: 6rem;
+      margin: 3rem 0 6rem;
     }
 
     .face {
@@ -263,20 +265,6 @@ export default {
     opacity: 1;
   }
 
-.blush-container{
-    position: absolute;
-    top: 60%;
-    left: 28%;
-    width: 43%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    .blush-left,
-    .blush-right{
-        width: 30%;
-        opacity: .2;
-    }
-}
 
 .face-shadow{
   width:80px;
@@ -288,6 +276,12 @@ export default {
   filter: blur(6px);
 }
 
+.contact{
+  margin: 3rem 0 5rem;
+  @media(min-width: $breakpoint-medium){
+    margin: 3rem 0 30vh;
+  }
+}
 
 }
 </style>
