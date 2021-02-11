@@ -12,20 +12,9 @@ import Footer from './components/MyFooter.vue'
 
 import VueKinesis from 'vue-kinesis'
 import { VLazyImagePlugin } from "v-lazy-image";
+import VueScrollTo from 'vue-scrollto'
 
 
-// var isTouchDevice = require('is-touch-device');
-// var assert = require('assert');
-
-// assert.strictEqual(typeof isTouchDevice(), 'boolean');
-
-function isTouchDevice() {
-  return (('ontouchstart' in window) ||
-     (navigator.maxTouchPoints > 0) ||
-     (navigator.msMaxTouchPoints > 0));
-}
-
-console.log(isTouchDevice());
 
 
 import 'animate.css';
@@ -52,13 +41,15 @@ Vue.config.productionTip = false
 Vue.use(VueRouter);
 Vue.use(VueKinesis);
 Vue.use(VLazyImagePlugin);
+Vue.use(VueScrollTo);
 
 
 
 const routes = [
   { path: '/work', component: Work},
   { path: '/info', component: Info},
-  {path: '/home', component:IntroGal}
+  {path: '/home', component:IntroGal},
+  {path: '/', redirect: '/home'}
 ]
 
 const router = new VueRouter({

@@ -77,11 +77,11 @@ export default {
         }
     },
     methods:{
-        // isTouchDevice: function() {
-        //     return (('ontouchstart' in window) ||
-        //     (navigator.maxTouchPoints > 0) ||
-        //     (navigator.msMaxTouchPoints > 0));
-        //     },
+        isTouchDevice: function() {
+            return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+            },
         selectRandomPerson: function(){
                 const randomPerson = Math.floor(Math.random() * this.work.length); 
                 this.introWork.push(this.work[randomPerson]);
@@ -91,12 +91,12 @@ export default {
             person.hover = !person.hover; 
         },
         showMoreOnClick: function(person){
-            // if(this.isTouchDevice()){
-            //     console.log('hahaha');
-            //     person.showMore = false;
-            // }else if(!this.isTouchDevice()){
+            if(this.isTouchDevice()){
+                person.hover = false;
                 person.showMore = !person.showMore;
-            //}
+            }else if(!this.isTouchDevice()){
+                person.showMore = !person.showMore;
+            }
         },
         // touchClick: function(person){
         //     person.showMore = true;
@@ -142,12 +142,10 @@ export default {
         },
         calculateTop: function(){
             const top = Math.floor(Math.random() * -300);
-            // console.log(top);
             return top;
         },
         calculateLeft: function(){
             const left = Math.floor(Math.random() * 100);
-            // console.log(left);
             return left;
         }
     },
@@ -185,7 +183,7 @@ export default {
 
 <style lang="scss" scoped>
 
-$text-color: #1212d4;
+@import '../global-scss/variables.scss';
 
 @mixin shadow-text($x,$y){
     color: #ff005d;
@@ -198,6 +196,9 @@ h2{
 
 .intro-container{
     flex: 1;
+    @media(min-width: $breakpoint-medium){
+        margin-bottom: 60vh;
+    }  
 }
 
 .intro-gallery{
@@ -205,8 +206,8 @@ h2{
     list-style: none;
     padding: 0;
     height: 100%;
-    .intro-gallery--item{
-        // position: relative;
+    max-width: 1200px;
+    &--item{
         a{
             text-decoration: none;
             &:hover{
@@ -215,15 +216,15 @@ h2{
             p{
                 font-size: 2rem;
                 font-weight: lighter;
-                // position: relative;
                 z-index: 0;
                 @include shadow-text(3px, 3px);
-                // &:hover{
-
-                // }
             }
         } 
     }
+}
+
+.name{
+    cursor: pointer;
 }
 
  .hover-img{
@@ -233,7 +234,7 @@ h2{
      @media(min-width: 930px){
     width: 20vw;
     }
-     @media(min-width: 1700px){
+     @media(min-width: $breakpoint-xl){
     width: 10vw;
     }
 }
@@ -270,11 +271,60 @@ h2{
 
 .v-lazy-image {
   filter: blur(10px);
-  transition: filter 0.3s;
+  transition: filter 0.7s;
 }
 
 .v-lazy-image-loaded {
   filter: blur(0);
+}
+
+
+.slick-slider{
+  width: 100vw;
+  margin-bottom: 3rem;
+  @media(min-width: $breakpoint-large){
+      width: auto;
+  }
+}
+
+.slide{
+    width: 80% !important;
+    max-width: 800px !important;
+    margin: 0 auto;
+    img{
+        width: 100%;
+        margin: 0 auto;
+        @media(min-width: $breakpoint-medium){
+            width: 50%;
+        }
+        @media(min-width: $breakpoint-large){
+            width: 60%;
+        }
+    }
+}
+
+.slick-prev{
+    left: 1rem;
+    transform: scale(2);
+    z-index: 999;
+    &::before{
+        color: $secondary-color;
+    }
+     @media(min-width: $breakpoint-large){
+       left: 10rem; 
+    }
+}
+
+.slick-next{
+    // background-color: red;
+    transform: scale(2);
+    right: 1rem;
+    &::before{
+        color: $secondary-color;
+    }
+    @media(min-width: $breakpoint-large){
+       right: 10rem; 
+    }
 }
 
 </style>

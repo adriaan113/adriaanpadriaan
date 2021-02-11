@@ -100,7 +100,7 @@ export default {
   mounted() {
     window.document.onscroll = () => {
       let navBar = document.getElementById("nav");
-      if (window.scrollY > navBar.offsetTop + 100) {
+      if (window.scrollY > navBar.offsetTop + 70) {
         this.active = true;
       } else {
         this.active = false;
@@ -123,21 +123,14 @@ export default {
       } else if (window.innerWidth < 624) {
         this.mobileWidth = true;
       }
-    });
-    // console.log(this.isTouchDevice());
-    
+    });  
   }
 };
 </script>
 
 <style lang="scss">
-$text-color: #1212d4;
-$sticky-header-color: $text-color;
-$breakpoint-medium: 624px;
 
-// .router-link-active{
-//   text-decoration: none;
-// }
+@import '../global-scss/variables.scss';
 
 .header-container {
   display: flex;
@@ -145,14 +138,24 @@ $breakpoint-medium: 624px;
   justify-content: center;
   align-items: center;
   margin-bottom: 4rem;
+  @media(min-width: $breakpoint-medium){
+    margin-bottom: 2rem;
+  }
 }
 
 .adriaan {
   margin: 0 auto;
-  font-size: 8vw;
+  font-size: 6vw;
   display: flex;
   justify-content: center;
   color: $text-color;
+  max-width: 600px;
+  h1,h2{
+    @media(min-width: $breakpoint-large){
+        font-size: 8rem;
+      }
+  }
+ 
 }
 h1,
 h2 {
@@ -190,7 +193,6 @@ h3 {
   justify-content: flex-start;
   height: 60px;
   z-index: 999;
-  //padding-top: 1.4rem;
    @media screen and (min-width: $breakpoint-medium){
     flex-direction: row;
     h2,a{
@@ -212,6 +214,11 @@ h3 {
     font-size: 1rem;
     margin-left: 1.5rem;
     color: white;
+     h1,h2{
+    @media(min-width: $breakpoint-large){
+        font-size: 1.5rem;
+      }
+  }
   }
   .bm-burger-bars {
     background-color: white;

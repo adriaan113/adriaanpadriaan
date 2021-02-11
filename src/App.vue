@@ -82,19 +82,9 @@ export default {
 <style lang="scss">
 
 @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100;400;900&display=swap');
-// @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 
-
-$text-color: #1212d4;
-$work-nav-btn: $text-color;
-$secondary-color: #ff005d;
-$ternary-color: greenyellow;
-
-$breakpoint-medium: 624px;
-
-$breakpoint-large: 1024px;
-
+@import './global-scss/variables.scss';
 
 html{
   scroll-behavior: smooth;
@@ -171,7 +161,6 @@ html{
   }
 
    .bm-burger-button {
-      // position: absolute;
       width: 36px;
       height: 30px;
       left: 16px;
@@ -191,34 +180,34 @@ html{
   }
 }
 
-.background-image{
-    position: absolute;
-    z-index: -1;
-    &:nth-child(2){
-        width: 100px;
-        top: 10%;
-        left: 10%;
-        opacity: .2;
-    }
-    &:nth-child(3){
-        width: 200px;
-        top: 80%;
-        left: 90%;
-        opacity: .3;
-    }
-    &:nth-child(4){
-        width: 100px;
-        top: 60%;
-        left: 10%;
-        opacity: .4;
-    }
-    &:nth-child(5){
-        width: 150px;
-        top: 90%;
-        left: 50%;
-        opacity: .2;
-    }
-}
+// .background-image{
+//     position: absolute;
+//     z-index: -1;
+//     &:nth-child(2){
+//         width: 100px;
+//         top: 10%;
+//         left: 10%;
+//         opacity: .2;
+//     }
+//     &:nth-child(3){
+//         width: 200px;
+//         top: 80%;
+//         left: 90%;
+//         opacity: .3;
+//     }
+//     &:nth-child(4){
+//         width: 100px;
+//         top: 60%;
+//         left: 10%;
+//         opacity: .4;
+//     }
+//     &:nth-child(5){
+//         width: 150px;
+//         top: 90%;
+//         left: 50%;
+//         opacity: .2;
+//     }
+// }
 
 
 </style>

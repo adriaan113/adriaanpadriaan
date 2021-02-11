@@ -15,13 +15,10 @@
 
 <style lang="scss" scoped>
 
-$text-color: #1212d4;
-$breakpoint-medium: 624px;
+@import '../global-scss/variables.scss';
 
 footer{
     background-color: $text-color;
-    // margin-top: 10vh;
-    // margin-bottom: -4rem;
     margin-bottom: -1rem;
     width: 110%;
     padding: 1.5rem 0;

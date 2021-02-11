@@ -20,7 +20,7 @@
             <path fill="#8B572A" d="M.448 234.5L234.5.448 468.552 234.5 234.5 468.552z" fill-rule="evenodd"/>
          </svg> -->
 
-        <ul class="work-gallery">
+        <ul class="work-gallery" id="work-container">
 
             <li v-for="person in work" 
             :key="person.name" 
@@ -31,7 +31,7 @@
             >
                 
                 <p class="job"  @mouseenter="person.hover=true">{{person.job}}</p>
-                <h2 class="name" @click="showMoreOnClick(person)"  @mouseenter="person.hover=true">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
+                <h2 class="name" @click="showMoreOnClick(person)"  @mouseenter="person.hover=true" v-scroll-to="{el: '#selected', container:'#work-container', offset:-400}">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
 
                 <div v-show="person.hover" class="animate__animated" :class="person.animate" @click="showMoreOnClick(person)">
                     <v-lazy-image :src="person.thumb" alt="" class="hover-thumb" :class="{'hide-thumb': person.showMore}" :style="{top:person.top, left:person.left}"/>
@@ -43,7 +43,7 @@
                 @leave="leaveProject"
                 :css="false"
                 >
-                    <div class="is-selected" v-if="person.showMore">
+                    <div class="is-selected" id="selected" v-if="person.showMore">
                         <VueSlickCarousel v-bind="settings">
                         <div class="slide" v-for="img in person.extraImg" :key="img.id"> 
                             <v-lazy-image :src="img"  alt=""/>     
@@ -71,7 +71,9 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 import work from './data.js';
 
-// import {eventBus} from '../main';
+
+
+
 
 export default {
 
@@ -94,16 +96,20 @@ export default {
         }
     },
     methods:{
-        // isTouchDevice: function() {
-        //     return (('ontouchstart' in window) ||
-        //     (navigator.maxTouchPoints > 0) ||
-        //     (navigator.msMaxTouchPoints > 0));
-        //     },
+        isTouchDevice: function() {
+            return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+            },
         checkOpenLi: function(){
             for(let i=0;i<this.work.length;i++){
                 this.work[i].showMore = false;
             }
         },
+        // checkOpenLiTest: function(person){
+        //     // this.work.map(x=> console.log(x.showMore));
+        //     person.showMore = false;
+        // },        
         hoverName:function(person){
             person.hover = !person.hover; 
         },
@@ -111,13 +117,14 @@ export default {
             console.log(person.name);
         },
         showMoreOnClick: function(person){
-            // if(this.isTouchDevice()){
-            //     console.log('oeoeoe');
-            //     //person.showMore = false;
-            // }else if(!this.isTouchDevice()){
-                this.checkOpenLi();
+            if(this.isTouchDevice()){
+                person.hover = false;
+                //this.checkOpenLi();
                 person.showMore = !person.showMore;
-            //}
+            }else if(!this.isTouchDevice()){
+                //this.checkOpenLi();
+                person.showMore = !person.showMore;
+            }
         },
         // touchClick: function(person){
         //     person.showMore = true;
@@ -170,22 +177,21 @@ export default {
             const left = Math.floor(Math.random() * 100);
             // console.log(left);
             return left;
+        },
+        closeGalleryOnLoad: function(){
+            this.checkOpenLi();
         }
     },
     mounted(){
         this.pushAnimation();
+        this.closeGalleryOnLoad();
     },
 }
 </script>
 
 <style lang="scss">
 
-$text-color: #1212d4;
-$secondary-color: #ff005d;
-$ternary-color: greenyellow;
-
-// $breakpoint-large: 1024px;
-$breakpoint-large: 1200px;
+@import '../global-scss/variables.scss';
 
 
 @mixin shadow-text($x,$y){
@@ -213,12 +219,16 @@ $breakpoint-large: 1200px;
 
 .name{
     margin: 0 auto;
-    font-size: 8vw;
+    font-size: 6vw;
     display: flex;
     justify-content: center;
     color: $text-color;
+     @media(min-width: $breakpoint-medium){
+        font-size: 4rem;
+    }
+    
     @media(min-width: $breakpoint-large){
-        font-size: 6.5rem;
+        font-size: 3rem;
     }
 }
 
@@ -243,8 +253,9 @@ $breakpoint-large: 1200px;
     z-index: 1;
     width: fit-content;
     text-align: center;
-    @media(min-width: $breakpoint-large){
+    @media(min-width: $story){
         margin: 1rem auto;
+        max-width: 800px;
     }
 }
 
@@ -319,8 +330,11 @@ $breakpoint-large: 1200px;
     img{
         width: 100%;
         margin: 0 auto;
+        @media(min-width: $breakpoint-medium){
+            width: 50%;
+        }
         @media(min-width: $breakpoint-large){
-            width: 60%;
+            width: 40%;
         }
     }
 }
@@ -351,7 +365,7 @@ $breakpoint-large: 1200px;
 
 .v-lazy-image {
   filter: blur(10px);
-  transition: filter 0.3s;
+  transition: filter 0.7s;
 }
 
 .v-lazy-image-loaded {

@@ -202,14 +202,13 @@ export default {
     this.floatingHead();
     this.irregularText();
     this.animateOnTouchDevice();
-    //this.makeMeBlush();
   }
 };
 </script>
 
 <style lang="scss" scoped>
 
-$breakpoint-medium: 624px;
+@import '../global-scss/variables.scss';
 
 .info {
   flex: 1;
