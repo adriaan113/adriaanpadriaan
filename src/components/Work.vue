@@ -4,10 +4,12 @@
       <p :class="{pactive: sneakPeak}">i also make this</p>
       <div class="sneak-peak" v-show="sneakPeak" :class="{divactive:sneakPeak}">
         <v-lazy-image :src="stranger"/>
-        <p class="see-more">I make sculptures. <a href="https://www.instagram.com/adriaanvanderploeg/" target="blank">See more</a></p>
+        <p class="see-more">I make sculptures. <a href="https://www.instagram.com/adriaanvanderploeg/" target="blank">
+          <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="instagram" class="instagram" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 448 512"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>
+        </a></p>
       </div>
     </aside>
-    <ul class="work-gallery" id="work-container">
+    <ul class="work-gallery" id="work-gallery">
       <li
         v-for="person in work"
         :key="person.name"
@@ -16,15 +18,16 @@
         @mouseenter="hoverName(person)"
         @mouseleave="person.hover = false"
       >
+      <div><!--wrapper for grid animation-->
         <p class="job" @mouseenter="person.hover = true">{{ person.job }}</p>
         <h2
           class="name"
           @click="showMoreOnClick(person)"
           @mouseenter="person.hover = true"
           v-scroll-to="{
-            el: '#selected',
-            container: '#work-container',
-            offset: -50
+            el: `#${test(person)}`,
+            container: 'body',
+            offset: -300
           }"
         >
           {{ person.name }}
@@ -51,7 +54,7 @@
           @leave="leaveProject"
           :css="false"
         >
-          <div class="is-selected" id="selected" v-if="person.showMore">
+          <div class="is-selected" :id="test(person)" v-if="person.showMore">
             <VueSlickCarousel v-bind="settings">
               <div class="slide" v-for="img in person.extraImg" :key="img.id">
                 <v-lazy-image :src="img" alt="" />
@@ -60,6 +63,7 @@
             <p class="story">{{ person.story }}</p>
           </div>
         </transition>
+        </div><!--wrapper for grid animation-->
       </li>
     </ul>
   </div>
@@ -71,6 +75,8 @@ import gsap from "gsap";
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+import { wrapGrid } from 'animate-css-grid'
+
 
 import work from "./data.js";
 
@@ -119,7 +125,6 @@ export default {
         //this.checkOpenLi();
         person.showMore = !person.showMore;
       }
-      this.irregularText();
     },
     //OPEN EN CLOSE ANIMATION OF THE WORK AND INTRO GALLERY
     beforeOpen: function(el) {
@@ -174,12 +179,19 @@ export default {
     showStrangers: function(){
       this.sneakPeak=!this.sneakPeak;
       // gsap.to('aside',{className:'asideactive', duration:1});
+    },
+    animateGrid: function(){
+      const grid = document.querySelector(".work-gallery");
+      wrapGrid(grid,{duration:250});
+    },
+    test: function(person){
+      return person.name.split(" ").join("").toLowerCase();
     }
   },
   mounted() {
     this.pushAnimation();
     this.closeGalleryOnLoad();
-    //this.irregularText();
+    //this.animateGrid();
   }
 };
 </script>
@@ -202,17 +214,22 @@ export default {
     max-width: none;
   }
   aside{
-    position: relative;
-    left: -3rem;
-    top: 1rem;
+    // position: relative;
+    // left: -3rem;
+    // top: 1rem;
+    position: absolute;
+    left: 1rem;
+    top: 6rem;
     background-color: $secondary-color;
     // width: 50%;
     // height: 50%;
     border-radius: 50%;
     transform: rotate(-10deg);
     cursor: pointer;
-    max-width: 100px;
-    max-height: 100px;
+    // max-width: 100px;
+    // max-height: 100px;
+    width: 80px;
+    height: 80px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -268,6 +285,9 @@ export default {
     padding: 0;
     max-width: 1200px;
     @media(min-width: $breakpoint-large){
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      grid-gap: 2rem 4rem;
       max-width: none;
     }
     &--item {
@@ -280,11 +300,7 @@ export default {
          margin: unset;
       }
     }
-    @media(min-width: $breakpoint-large){
-      display: grid;
-      grid-template-columns: repeat(2,1fr);
-      grid-gap: 2rem 4rem;
-    }
+  
   }
 }
 
@@ -309,12 +325,6 @@ export default {
   justify-content: center;
   @media (min-width: $breakpoint-large) {
      display: block;
-
-    // position: absolute;
-    // width: 100%;
-    // top: 40%;
-    // left: 0%;
-
   }
 }
 
@@ -353,7 +363,7 @@ export default {
   width: 30vw;
   z-index: 2;
   @media (min-width: 930px) {
-    width: 20vw;
+    width: 8vw;
   }
   @media (min-width: 1700px) {
     width: 10vw;
@@ -418,5 +428,10 @@ export default {
 
 .v-lazy-image-loaded {
   filter: blur(0);
+}
+
+.instagram{
+  width: 15px;
+  padding: 0 5px;
 }
 </style>
