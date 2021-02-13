@@ -10,22 +10,20 @@ import Work from './components/Work.vue'
 import Info from './components/Info.vue'
 import Footer from './components/MyFooter.vue'
 
+//LIBRARY FOR ANIMATING "ADRIAAN" LOGO ON NON TOUCH DEVICES"
 import VueKinesis from 'vue-kinesis'
+//LAZY LOADING IMAGES
 import { VLazyImagePlugin } from "v-lazy-image";
+//SCROLL TO THE RIGHT LI ON CLICK
 import VueScrollTo from 'vue-scrollto'
-
-
-
-
+//ANIMATING HOVER STATES OF IMAGES
 import 'animate.css';
 
-
+//ICONS
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
 library.add(faUserSecret)
-
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
@@ -44,7 +42,7 @@ Vue.use(VLazyImagePlugin);
 Vue.use(VueScrollTo);
 
 
-
+//ROUTES FOR ROUTER
 const routes = [
   { path: '/work', component: Work},
   { path: '/info', component: Info},

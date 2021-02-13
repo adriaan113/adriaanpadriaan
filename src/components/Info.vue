@@ -6,13 +6,13 @@
       <p>maar ook enthousiast tekenaar van hoofden</p>
       <p>en front-end enthousiasteling</p>
 
-    <div class="portrait">
+      <div class="portrait">
         <img :src="portretNew" alt="portret van adriaan" class="face" />
 
         <div class="eyes">
           <img :src="eyeLeft" alt="" class="eye left" />
           <img :src="eyeRight" alt="" class="eye right" />
-        </div>        
+        </div>
 
         <svg
           viewBox="0 0 37 0"
@@ -82,9 +82,8 @@
             />
           </g>
         </svg>
-
       </div>
-       <div class="face-shadow"></div>
+      <div class="face-shadow"></div>
     </div>
 
     <div class="contact">
@@ -117,27 +116,43 @@ export default {
       portretNew: require("../assets/adriaan-van-der-ploeg4.png"),
       eyeLeft: require("../assets/eye-left2.png"),
       eyeRight: require("../assets/eye-right2.png"),
-      tongueInOut: false,
+      tongueInOut: false
     };
   },
   methods: {
-     isTouchDevice: function() {
-      return (('ontouchstart' in window) ||
-      (navigator.maxTouchPoints > 0) ||
-      (navigator.msMaxTouchPoints > 0));
+    isTouchDevice: function() {
+      return (
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+      );
     },
-    animateOnTouchDevice: function(){
-      if(this.isTouchDevice()){
-        console.log('dit is een touchscreen');
-        const eyeLeft = document.querySelector('.left');
-        const eyeRight = document.querySelector('.right');
-        const randomNumber = Math.floor(Math.random() * 100) + Math.floor(Math.random() * 200);
-        
-        gsap.to(eyeLeft,{duration:1, rotation: randomNumber, repeat: -1, yoyo:true, delay:1,repeatDelay:3});
-        gsap.to(eyeRight,{duration:1, rotation: randomNumber, repeat: -1, yoyo:true, delay:1,repeatDelay:3});
+    animateOnTouchDevice: function() { //IF TOUCH DEVICE: ANIMATE AUTOMATIICALY INSTEAD OF CURSOR BASED
+      if (this.isTouchDevice()) {
+        const eyeLeft = document.querySelector(".left");
+        const eyeRight = document.querySelector(".right");
+        const randomNumber =
+          Math.floor(Math.random() * 100) + Math.floor(Math.random() * 200);
+
+        gsap.to(eyeLeft, {
+          duration: 1,
+          rotation: randomNumber,
+          repeat: -1,
+          yoyo: true,
+          delay: 1,
+          repeatDelay: 3
+        });
+        gsap.to(eyeRight, {
+          duration: 1,
+          rotation: randomNumber,
+          repeat: -1,
+          yoyo: true,
+          delay: 1,
+          repeatDelay: 3
+        });
       }
     },
-    eyeMove: function(e) {
+    eyeMove: function(e) { //FOLLOW CURSOR WITH EYES
       const eyes = document.querySelectorAll(".left, .right");
 
       for (let i = 0; i < eyes.length; i++) {
@@ -151,7 +166,7 @@ export default {
       }
     },
 
-    tongue: function() {
+    tongue: function() { //STICK OUT TONGUE
       const tongue = document.querySelector("#tong");
 
       setInterval(() => {
@@ -170,45 +185,53 @@ export default {
       }, 6000);
     },
 
-    floatingHead: function(){
-      const head= document.querySelector('.portrait');
-      const shadow=document.querySelector('.face-shadow');
+    floatingHead: function() {
+      const head = document.querySelector(".portrait");
+      const shadow = document.querySelector(".face-shadow");
       const tl = gsap.timeline();
-    
-      tl.to(head,{y:"random(-10, 10)",duration:1,repeat:-1,yoyo:true, rotation:"random(-5, 5)",repeatRefresh:true,});
-      tl.to(shadow,{scale:1.1,duration:1,repeat:-1,yoyo:true,repeatRefresh:true});
 
+      tl.to(head, {
+        y: "random(-10, 10)",
+        duration: 1,
+        repeat: -1,
+        yoyo: true,
+        rotation: "random(-5, 5)",
+        repeatRefresh: true
+      });
+      tl.to(shadow, {
+        scale: 1.1,
+        duration: 1,
+        repeat: -1,
+        yoyo: true,
+        repeatRefresh: true
+      });
     },
-      irregularText: function(){
-            const text = document.querySelectorAll('p');
-            for(let i =0; i<text.length; i++){
-                const string = text[i].textContent;
-                text[i].innerHTML = '';
-                string.split('').forEach(function(e){
-                    const newtext = document.createElement('P');
-                    // newtext.classList.add('cta');
-                    newtext.style.display = 'inline';
-                    newtext.style.fontSize = (Math.random() * (16 - 13) + 15) + 'px';
-                    // newtext.style.transform = `rotate(${Math.floor(Math.random() * 50)}deg)`;
-                    newtext.innerHTML = e;
-                    text[i].appendChild(newtext);
-                });
-            }
-           
-        }
+    // irregularText: function() { //SLIGHT TEXT DISTORTION
+    //   const text = document.querySelectorAll("p");
+    //   for (let i = 0; i < text.length; i++) {
+    //     const string = text[i].textContent;
+    //     text[i].innerHTML = "";
+    //     string.split("").forEach(function(e) {
+    //       const newtext = document.createElement("P");
+    //       newtext.style.display = "inline";
+    //       newtext.style.fontSize = Math.random() * (16 - 13) + 15 + "px";
+    //       newtext.innerHTML = e;
+    //       text[i].appendChild(newtext);
+    //     });
+    //   }
+    // }
   },
   mounted() {
     this.tongue();
     this.floatingHead();
-    this.irregularText();
+    //this.irregularText();
     this.animateOnTouchDevice();
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
-@import '../global-scss/variables.scss';
+@import "../global-scss/variables.scss";
 
 .info {
   flex: 1;
@@ -220,9 +243,9 @@ export default {
     justify-content: flex-start;
     align-items: center;
 
-    p{
-      margin: .2rem;
-      &:nth-child(4){
+    p {
+      margin: 0.2rem;
+      &:nth-child(4) {
         margin-bottom: 2rem;
       }
     }
@@ -264,23 +287,21 @@ export default {
     opacity: 1;
   }
 
-
-.face-shadow{
-  width:80px;
-  height: 30px;
-  background-color: lighten(lightgray,5%);
-  z-index: 995;
-  margin-top: -80px;
-  border-radius: 40%;
-  filter: blur(6px);
-}
-
-.contact{
-  margin: 3rem 0 5rem;
-  @media(min-width: $breakpoint-medium){
-    margin: 3rem 0 30vh;
+  .face-shadow {
+    width: 80px;
+    height: 30px;
+    background-color: lighten(lightgray, 5%);
+    z-index: 995;
+    margin-top: -80px;
+    border-radius: 40%;
+    filter: blur(6px);
   }
-}
 
+  .contact {
+    margin: 3rem 0 5rem;
+    @media (min-width: $breakpoint-medium) {
+      margin: 3rem 0 30vh;
+    }
+  }
 }
 </style>

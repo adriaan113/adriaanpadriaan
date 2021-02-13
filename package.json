@@ -19,6 +19,7 @@
     "vue-burger-menu": "^2.0.5",
     "vue-kinesis": "^1.1.7",
     "vue-router": "^3.4.9",
+    "vue-scrollto": "^2.20.0",
     "vue-slick-carousel": "^1.0.6"
   },
   "devDependencies": {

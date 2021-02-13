@@ -1,6 +1,6 @@
 <template>
   <header class="header-container">
-    <div id="nav" :class="{sticky: active}">
+    <div id="nav" :class="{ sticky: active }">
       <router-link to="/home">
         <kinesis-container class="adriaan" tag="div">
           <kinesis-element :strength="10" tag="span" type="rotate" axis="x">
@@ -27,77 +27,129 @@
       <div class="mobile-menu" v-if="mobileWidth">
         <Slide right width="300" closeOnNavigation>
           <a id="home" href="#" @click="menuItems">
-            <span><router-link to="/home"><h2>home</h2></router-link></span>
-            <span><router-link to="/work"><h2>work</h2></router-link></span>
-            <span><router-link to="/info"><h2>info</h2></router-link></span>
+            <span
+              ><router-link to="/home"><h2>home</h2></router-link></span
+            >
+            <span
+              ><router-link to="/work"><h2>work</h2></router-link></span
+            >
+            <span
+              ><router-link to="/info"><h2>info</h2></router-link></span
+            >
           </a>
         </Slide>
       </div>
 
       <div class="desktop-menu" v-else>
-       <nav>
-         <ul @click="menuItems">
-           <li class="desktop-menu--item"><router-link to="/work"><h2>work</h2></router-link></li>
-           <li class="desktop-menu--item"><router-link to="/info"><h2>info</h2></router-link></li>
-         </ul>
-       </nav>
+        <nav>
+          <ul @click="menuItems">
+            <li class="desktop-menu--item">
+              <router-link to="/work"><h2>work</h2></router-link>
+            </li>
+            <li class="desktop-menu--item">
+              <router-link to="/info"><h2>info</h2></router-link>
+            </li>
+          </ul>
+        </nav>
       </div>
-
     </div>
   </header>
 </template>
 
 <script>
-import gsap from 'gsap';
+import gsap from "gsap"; //MOET DIT NIET GEWOON GLOBAL?
 import { Slide } from "vue-burger-menu";
 
 export default {
   components: {
-    Slide,
+    Slide
   },
   data() {
     return {
       active: false,
-      mobileWidth: true,
+      mobileWidth: true
     };
   },
   methods: {
     isTouchDevice: function() {
-      return (('ontouchstart' in window) ||
-      (navigator.maxTouchPoints > 0) ||
-      (navigator.msMaxTouchPoints > 0));
+      return (
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+      );
     },
-    animateOnTouchDevice: function(){
-      if(this.isTouchDevice()){
-        console.log('dit is een touchscreen');
-        const h1 = document.querySelectorAll('h1');
-        const h2 = document.querySelector('h2');
-        for(let i= 0;i<h1.length;i++){
-          if(i===0){
-            gsap.to(h1[i],{duration:1, rotation:10, repeat: -1, yoyo:true, delay:1, repeatDelay:4});
-          }else if(i===1){
-            gsap.to(h1[i],{duration:0.8, rotateY:30,repeat: -1, yoyo:true, repeatDelay:4});
-          }else if(i===2){
-            gsap.to(h1[i],{duration:0.6, rotateY:-20, rotation: -10, scale: 0.8,repeat: -1, yoyo:true, repeatDelay:1});
-          }else if(i===3){
-            gsap.to(h1[i],{duration:0.4, y:-3, scale: 1.1,repeat: -1, yoyo:true, delay: 2, repeatDelay:6});
-          }else if(i===4){
-            gsap.to(h1[i],{duration:0.7, y:5,repeat: -1, rotateY:-20, skewX: -10, yoyo:true, delay: 4, repeatDelay:5});
+    animateOnTouchDevice: function() {
+      if (this.isTouchDevice()) {
+        const h1 = document.querySelectorAll("h1");
+        const h2 = document.querySelector("h2");
+        for (let i = 0; i < h1.length; i++) {
+          if (i === 0) {
+            gsap.to(h1[i], {
+              duration: 1,
+              rotation: 10,
+              repeat: -1,
+              yoyo: true,
+              delay: 1,
+              repeatDelay: 4
+            });
+          } else if (i === 1) {
+            gsap.to(h1[i], {
+              duration: 0.8,
+              rotateY: 30,
+              repeat: -1,
+              yoyo: true,
+              repeatDelay: 4
+            });
+          } else if (i === 2) {
+            gsap.to(h1[i], {
+              duration: 0.6,
+              rotateY: -20,
+              rotation: -10,
+              scale: 0.8,
+              repeat: -1,
+              yoyo: true,
+              repeatDelay: 1
+            });
+          } else if (i === 3) {
+            gsap.to(h1[i], {
+              duration: 0.4,
+              y: -3,
+              scale: 1.1,
+              repeat: -1,
+              yoyo: true,
+              delay: 2,
+              repeatDelay: 6
+            });
+          } else if (i === 4) {
+            gsap.to(h1[i], {
+              duration: 0.7,
+              y: 5,
+              repeat: -1,
+              rotateY: -20,
+              skewX: -10,
+              yoyo: true,
+              delay: 4,
+              repeatDelay: 5
+            });
           }
         }
-        gsap.to(h2,{duration:1,y:7,scale:0.8,yoyo:true,delay:0.3,repeatDelay:5,skewY:5});
-        
-
-      }else{
-        console.log('dit is geen touchscreen');
+        gsap.to(h2, {
+          duration: 1,
+          y: 7,
+          scale: 0.8,
+          yoyo: true,
+          delay: 0.3,
+          repeatDelay: 5,
+          skewY: 5
+        });
       }
     },
-    menuItems: function (e) {
+    menuItems: function(e) {
       console.log(e.target.textContent);
       this.$emit("item", e);
-    },
+    }
   },
-  mounted() {
+  mounted() { // STICKY HEADER 
     window.document.onscroll = () => {
       let navBar = document.getElementById("nav");
       if (window.scrollY > navBar.offsetTop + 70) {
@@ -107,7 +159,8 @@ export default {
       }
     };
 
-     window.addEventListener("resize", () => { //HIER ZIT EEN GLITCH. ON LOAD GEEFT IE EERST ALTIJD EEN FRACTIE VAN EEN SECONDE HET MOBILE MENU
+    window.addEventListener("resize", () => { //STICKY HEADER
+      //HIER ZIT EEN GLITCH. ON LOAD GEEFT IE EERST ALTIJD EEN FRACTIE VAN EEN SECONDE HET MOBILE MENU
       if (window.innerWidth > 624) {
         this.mobileWidth = false;
       } else if (window.innerWidth < 624) {
@@ -116,29 +169,29 @@ export default {
     });
     this.animateOnTouchDevice();
   },
-  created() {
+  created() { //STICKY HEADER
     window.addEventListener("load", () => {
       if (window.innerWidth > 624) {
         this.mobileWidth = false;
       } else if (window.innerWidth < 624) {
         this.mobileWidth = true;
       }
-    });  
+    });
   }
 };
 </script>
 
 <style lang="scss">
-
-@import '../global-scss/variables.scss';
+@import "../global-scss/variables.scss";
 
 .header-container {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  margin-bottom: 4rem;
-  @media(min-width: $breakpoint-medium){
+  // margin-bottom: 4rem;
+  margin-bottom: 0;
+  @media (min-width: $breakpoint-medium) {
     margin-bottom: 2rem;
   }
 }
@@ -150,12 +203,15 @@ export default {
   justify-content: center;
   color: $text-color;
   max-width: 600px;
-  h1,h2{
-    @media(min-width: $breakpoint-large){
-        font-size: 8rem;
-      }
+  @media (min-width: $breakpoint-medium) {
+      margin: -30px auto 0;
+    }
+  h1,
+  h2 {
+    @media (min-width: $breakpoint-large) {
+      font-size: 8rem;
+    }
   }
- 
 }
 h1,
 h2 {
@@ -181,7 +237,7 @@ h3 {
   justify-content: center;
   width: 100%;
   top: 0;
-  @media screen and (min-width: $breakpoint-medium){
+  @media screen and (min-width: $breakpoint-medium) {
     flex-direction: column;
   }
 }
@@ -193,20 +249,20 @@ h3 {
   justify-content: flex-start;
   height: 60px;
   z-index: 999;
-   @media screen and (min-width: $breakpoint-medium){
+  @media screen and (min-width: $breakpoint-medium) {
     flex-direction: row;
-    h2,a{
+    h2,
+    a {
       color: white;
-      .router-link-active{
-          text-decoration: underline;
+      .router-link-active {
+        text-decoration: underline;
       }
     }
-    .desktop-menu nav{
+    .desktop-menu nav {
       top: 0;
-      ul{
-      justify-content: flex-end;
-      
-    }
+      ul {
+        justify-content: flex-end;
+      }
     }
   }
   .adriaan {
@@ -214,35 +270,38 @@ h3 {
     font-size: 1rem;
     margin-left: 1.5rem;
     color: white;
-     h1,h2{
-    @media(min-width: $breakpoint-large){
+     @media (min-width: $breakpoint-medium) {
+      margin: 0 1rem;
+    }
+    h1,
+    h2 {
+      @media (min-width: $breakpoint-large) {
         font-size: 1.5rem;
       }
-  }
+    }
   }
   .bm-burger-bars {
     background-color: white;
   }
 }
 
-.desktop-menu{
+.desktop-menu {
   width: 100%;
-  nav{
+  nav {
     position: relative;
     top: -50px;
-    ul{
+    ul {
       display: flex;
       justify-content: center;
       list-style: none;
       padding: 0;
       margin: 0;
-      li{
+      li {
         margin: 0 1rem;
-        a{
-          // text-decoration: none;
+        a {
           color: $text-color;
         }
-        .router-link-active{
+        .router-link-active {
           text-decoration: underline !important;
         }
       }

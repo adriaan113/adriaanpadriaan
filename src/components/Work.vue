@@ -1,366 +1,414 @@
 <template>
-    <div class="work-container">
+  <div class="work-container">
+    <aside @click="showStrangers" :class="{asideactive: sneakPeak}">
+      <p :class="{pactive: sneakPeak}">i also make this</p>
+      <div class="sneak-peak" v-show="sneakPeak" :class="{divactive:sneakPeak}">
+        <v-lazy-image :src="stranger"/>
+        <p class="see-more">I make sculptures. <a href="https://www.instagram.com/adriaanvanderploeg/" target="blank">See more</a></p>
+      </div>
+    </aside>
+    <ul class="work-gallery" id="work-container">
+      <li
+        v-for="person in work"
+        :key="person.name"
+        class="work-gallery--item"
+        :class="{ bigger: person.hover }"
+        @mouseenter="hoverName(person)"
+        @mouseleave="person.hover = false"
+      >
+        <p class="job" @mouseenter="person.hover = true">{{ person.job }}</p>
+        <h2
+          class="name"
+          @click="showMoreOnClick(person)"
+          @mouseenter="person.hover = true"
+          v-scroll-to="{
+            el: '#selected',
+            container: '#work-container',
+            offset: -50
+          }"
+        >
+          {{ person.name }}
+        </h2>
 
-        <!-- <svg class="background-image" width="337px" height="830px" viewBox="0 0 337 830" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <title>Rectangle</title>
-            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <path d="M20.8840818,0 L337,0 C304.877503,67.1768872 286.846253,115.632616 282.90625,145.367188 C270.504756,238.959281 323.03125,313.124446 323.03125,380.390625 C323.03125,442.403973 278.487055,519.736079 282.90625,621.484375 C284.678722,662.294074 302.709972,731.799283 337,830 L20.8840818,830 C5.17395847,722.167299 -1.49443338,645.664694 0.87890625,600.492188 C5.95792158,503.821719 58.4414063,421.148294 58.4414063,360.746094 C58.4414063,298.736345 6.23186559,221.017837 0.87890625,145.367188 C-1.46508376,112.24077 5.20330809,63.7850408 20.8840818,0 Z" id="Rectangle" fill="green"></path>
-            </g>
-        </svg>
+        <div
+          v-show="person.hover"
+          class="animate__animated"
+          :class="person.animate"
+          @click="showMoreOnClick(person)"
+        >
+          <v-lazy-image
+            :src="person.thumb"
+            alt=""
+            class="hover-thumb"
+            :class="{ 'hide-thumb': person.showMore }"
+            :style="{ top: person.top, left: person.left }"
+          />
+        </div>
 
-        <svg class="background-image" viewBox="0 0 274 223" xmlns="http://www.w3.org/2000/svg">
-            <path d="M264.627 105.342C243.662 68.976 152.572 123.93 112.97 78.877 73.368 33.825 32.134 52.721 10.707 96.652c-21.426 43.93 57.862 37.4 107.865 52.61 50.004 15.209 167.02-7.553 146.055-43.92z" fill="#FF1952" fill-rule="evenodd"/>
-        </svg>
-
-        <svg class="background-image" viewBox="0 0 233 233" xmlns="http://www.w3.org/2000/svg">
-            <path d="M116.5 233C52.159 233 0 180.841 0 116.5 0 52.159 52.159 0 116.5 0 180.841 0 233 52.159 233 116.5c0 64.341-52.159 116.5-116.5 116.5zm0-28c48.877 0 88.5-39.623 88.5-88.5S165.377 28 116.5 28 28 67.623 28 116.5 67.623 205 116.5 205z" fill="#FAFF00" fill-rule="evenodd"/>
-        </svg>
-
-        <svg class="background-image" viewBox="0 0 469 469" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#8B572A" d="M.448 234.5L234.5.448 468.552 234.5 234.5 468.552z" fill-rule="evenodd"/>
-         </svg> -->
-
-        <ul class="work-gallery" id="work-container">
-
-            <li v-for="person in work" 
-            :key="person.name" 
-            class="work-gallery--item" 
-            :class="{bigger: person.hover}" 
-            @mouseenter="hoverName(person)" 
-            @mouseleave="person.hover=false"
-            >
-                
-                <p class="job"  @mouseenter="person.hover=true">{{person.job}}</p>
-                <h2 class="name" @click="showMoreOnClick(person)"  @mouseenter="person.hover=true" v-scroll-to="{el: '#selected', container:'#work-container', offset:-400}">{{person.name}}</h2> <!--@mouseover="hoverName(person)" @mouseleave="person.hover=false"-->
-
-                <div v-show="person.hover" class="animate__animated" :class="person.animate" @click="showMoreOnClick(person)">
-                    <v-lazy-image :src="person.thumb" alt="" class="hover-thumb" :class="{'hide-thumb': person.showMore}" :style="{top:person.top, left:person.left}"/>
-                </div>
-                
-                <transition 
-                @before-enter="beforeOpen"
-                @enter="enterProject"
-                @leave="leaveProject"
-                :css="false"
-                >
-                    <div class="is-selected" id="selected" v-if="person.showMore">
-                        <VueSlickCarousel v-bind="settings">
-                        <div class="slide" v-for="img in person.extraImg" :key="img.id"> 
-                            <v-lazy-image :src="img"  alt=""/>     
-                        </div>
-                        </VueSlickCarousel>
-                    <p class="story">{{person.story}}</p>
-                    </div>
-                </transition>   
-
-            </li>
-        </ul>
-
-    </div>
+        <transition
+          @before-enter="beforeOpen"
+          @enter="enterProject"
+          @leave="leaveProject"
+          :css="false"
+        >
+          <div class="is-selected" id="selected" v-if="person.showMore">
+            <VueSlickCarousel v-bind="settings">
+              <div class="slide" v-for="img in person.extraImg" :key="img.id">
+                <v-lazy-image :src="img" alt="" />
+              </div>
+            </VueSlickCarousel>
+            <p class="story">{{ person.story }}</p>
+          </div>
+        </transition>
+      </li>
+    </ul>
+  </div>
 </template>
 
-
 <script>
-import gsap from 'gsap';
+import gsap from "gsap";
 
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 
-import VueSlickCarousel from 'vue-slick-carousel'
-import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-// optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-
-import work from './data.js';
-
-
-
-
+import work from "./data.js";
 
 export default {
-
-  components:{
+  components: {
     VueSlickCarousel
-   
   },
   data() {
     return {
-        settings:{
-            dots: true,
-            dotsClass: "slick-dots custom-dot-class",
-            edgeFriction: 0.35,
-            infinite: false,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
-            },
-        work: work.data
-        }
+      settings: {
+        dots: true,
+        dotsClass: "slick-dots custom-dot-class",
+        edgeFriction: 0.35,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+      },
+      work: work.data,
+      sneakPeak: false,
+      stranger: require('../assets/persons_thumb.jpg')
+    };
+  },
+  methods: {
+    isTouchDevice: function() {
+      return (
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+      );
     },
-    methods:{
-        isTouchDevice: function() {
-            return (('ontouchstart' in window) ||
-            (navigator.maxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0));
-            },
-        checkOpenLi: function(){
-            for(let i=0;i<this.work.length;i++){
-                this.work[i].showMore = false;
-            }
-        },
-        // checkOpenLiTest: function(person){
-        //     // this.work.map(x=> console.log(x.showMore));
-        //     person.showMore = false;
-        // },        
-        hoverName:function(person){
-            person.hover = !person.hover; 
-        },
-        preventClosing: function(person){ 
-            console.log(person.name);
-        },
-        showMoreOnClick: function(person){
-            if(this.isTouchDevice()){
-                person.hover = false;
-                //this.checkOpenLi();
-                person.showMore = !person.showMore;
-            }else if(!this.isTouchDevice()){
-                //this.checkOpenLi();
-                person.showMore = !person.showMore;
-            }
-        },
-        // touchClick: function(person){
-        //     person.showMore = true;
-        //     console.log('een twee drie');
-        // },
-        beforeOpen: function (el){
-            el.style.transform ='scaleY(0)';
-            el.style.transformOrigin ='top';
-            el.style.transform = 'translateY(-50)';
-        },
-        enterProject: function(el, done) {
-            gsap.to(el,{duration:.3,y:0, scaleY:1,onComplete: done});
-        },
-        leaveProject: function(el, done) {
-            gsap.to(el,{duration:.3, scaleY:0,onComplete: done});
-        },
-        pushAnimation: function(){
-            for(let i=0;i<this.work.length;i++){   
-                this.work[i].animate = this.calculateAnimation();
-                this.work[i].top = `-${this.calculateTop()}px`;
-                this.work[i].left = `${this.calculateLeft()}px`;
-            }
-        },
-        calculateAnimation: function(){
-            const animation1 = 'animate__bounceInLeft';
-            const animation2 = 'animate__fadeInUp';
-            const animation3 = 'animate__jello';
-            const animation4 = 'animate__bounceInRight';
-            const x = Math.floor(Math.random() * 4);
+    checkOpenLi: function() { //CLOSE ALL LI --NOT IN USE
+      for (let i = 0; i < this.work.length; i++) {
+        this.work[i].showMore = false;
+      }
+    },
+    hoverName: function(person) {
+      person.hover = !person.hover;
+    },
+    showMoreOnClick: function(person) {
+      if (this.isTouchDevice()) {
+        person.hover = false;
+        //this.checkOpenLi();
+        person.showMore = !person.showMore;
+      } else if (!this.isTouchDevice()) {
+        //this.checkOpenLi();
+        person.showMore = !person.showMore;
+      }
+      this.irregularText();
+    },
+    //OPEN EN CLOSE ANIMATION OF THE WORK AND INTRO GALLERY
+    beforeOpen: function(el) {
+      el.style.transform = "scaleY(0)";
+      el.style.transformOrigin = "top";
+      el.style.transform = "translateY(-50)";
+    },
+    enterProject: function(el, done) {
+      gsap.to(el, { duration: 0.3, y: 0, scaleY: 1, onComplete: done });
+    },
+    leaveProject: function(el, done) {
+      gsap.to(el, { duration: 0.3, scaleY: 0, onComplete: done });
+    },
+    pushAnimation: function() {
+      for (let i = 0; i < this.work.length; i++) {
+        this.work[i].animate = this.calculateAnimation();
+        this.work[i].top = `-${this.calculateTop()}px`;
+        this.work[i].left = `${this.calculateLeft()}px`;
+      }
+    },
+    calculateAnimation: function() {
+      const animation1 = "animate__bounceInLeft";
+      const animation2 = "animate__fadeInUp";
+      const animation3 = "animate__jello";
+      const animation4 = "animate__bounceInRight";
+      const x = Math.floor(Math.random() * 4);
 
-            switch(x){
-                case 0:
-                    return animation1;   
-                case 1:
-                    return animation2;     
-                case 2:
-                    return animation3;     
-                case 3:
-                    return animation4;             
-                default:
-                    console.log('hahhahaah');
-            }
-        },
-        calculateTop: function(){
-            const top = Math.floor(Math.random() * 100);
-            // console.log(top);
-            return top;
-        },
-        calculateLeft: function(){
-            const left = Math.floor(Math.random() * 100);
-            // console.log(left);
-            return left;
-        },
-        closeGalleryOnLoad: function(){
-            this.checkOpenLi();
-        }
+      switch (x) {
+        case 0:
+          return animation1;
+        case 1:
+          return animation2;
+        case 2:
+          return animation3;
+        case 3:
+          return animation4;
+        default:
+          console.log("hahhahaah");
+      }
     },
-    mounted(){
-        this.pushAnimation();
-        this.closeGalleryOnLoad();
+    calculateTop: function() {
+      const top = Math.floor(Math.random() * 100);
+      return top;
     },
-}
+    calculateLeft: function() {
+      const left = Math.floor(Math.random() * 100);
+      return left;
+    },
+    closeGalleryOnLoad: function() {
+      this.checkOpenLi();
+    },
+    showStrangers: function(){
+      this.sneakPeak=!this.sneakPeak;
+      // gsap.to('aside',{className:'asideactive', duration:1});
+    }
+  },
+  mounted() {
+    this.pushAnimation();
+    this.closeGalleryOnLoad();
+    //this.irregularText();
+  }
+};
 </script>
 
 <style lang="scss">
+@import "../global-scss/variables.scss";
 
-@import '../global-scss/variables.scss';
-
-
-@mixin shadow-text($x,$y){
-    color: #ff005d;
-    text-shadow: $x $y #ff005d;
+@mixin shadow-text($x, $y) {
+  color: #ff005d;
+  text-shadow: $x $y #ff005d;
 }
 
-.work-container{
-    height: 100%;
-    flex: 1;
-    .work-gallery{
-        display: flex;
-        flex-flow: column wrap;
-        list-style: none;
-        padding: 0;
-        max-width: 1200px;
-        &--item{
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            cursor: pointer;
-        }
-    }   
-}
-
-.name{
-    margin: 0 auto;
-    font-size: 6vw;
-    display: flex;
-    justify-content: center;
-    color: $text-color;
-     @media(min-width: $breakpoint-medium){
-        font-size: 4rem;
-    }
-    
-    @media(min-width: $breakpoint-large){
-        font-size: 3rem;
-    }
-}
-
-.is-selected{
+.work-container {
+  height: 100%;
+  flex: 1;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: flex-start;
+  @media(min-width: $breakpoint-large){
+    max-width: none;
+  }
+  aside{
+    position: relative;
+    left: -3rem;
+    top: 1rem;
+    background-color: $secondary-color;
+    // width: 50%;
+    // height: 50%;
+    border-radius: 50%;
+    transform: rotate(-10deg);
+    cursor: pointer;
+    max-width: 100px;
+    max-height: 100px;
     display: flex;
     flex-flow: column nowrap;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     @media(min-width: $breakpoint-large){
-        display: block;
+      position: absolute;
+      left: 9rem;
+      top: 13rem;
+      width: 100px;
     }
-}
-
-.story{
-    background-color: white;
-    border: 2px solid $text-color;
-    position: relative;
-    box-shadow: 5px 5px $ternary-color;
-    margin:  1rem;
-    padding: 1.5rem;
-    text-align: left;
-    z-index: 1;
-    width: fit-content;
-    text-align: center;
-    @media(min-width: $story){
-        margin: 1rem auto;
-        max-width: 800px;
+    p{
+      width: 50px;
+      padding: 2rem .2rem;
+      font-weight: bold;
     }
-}
-
-.job{
-    position: relative;
-    top: 30px;
-    font-size: 1rem;
-    font-weight: lighter;
-    text-transform: uppercase;
-    z-index: -1;
-    @include shadow-text(1px,1px);
-}
-
-.hover-thumb{
-    position: absolute;
-    width: 30vw;
-    z-index: 2;
-    @media(min-width: 930px){
-    width: 20vw;
+    .sneak-peak{
+      display: flex;
+      flex-direction: column;
+      img{
+        width: 100%;
+      }
+      .see-more{
+        margin: 0;
+        padding: .3rem;
+        width: 100%;
+        a{
+          text-decoration: underline !important;
+          color: black;
+        }
+      }
+    } 
+  }
+  .asideactive{
+      width: 100%;
+      max-width: 250px;
+      max-height: none;
+      height: auto;
+      padding: 2px;
+      border-radius: 0;
+      transform: scale(1.3) rotate(-10deg);
+      transition: all linear .2s; //DIT KAN ELEGANTER MET GSAP
+  }
+  .pactive{
+    display: none;
+  }
+  .divactive{
+    width: 100%;
+  }
+  .work-gallery {
+    display: flex;
+    flex-flow: column wrap;
+    list-style: none;
+    padding: 0;
+    max-width: 1200px;
+    @media(min-width: $breakpoint-large){
+      max-width: none;
     }
-     @media(min-width: 1700px){
-    width: 10vw;
+    &--item {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      cursor: pointer;
+      @media(min-width: $breakpoint-large){
+         max-width: 800px;
+         margin: unset;
+      }
     }
-}
-
-.hide-thumb{
-    opacity: 0;
-}
-
-// .background-image{
-//     position: absolute;
-//     z-index: -1;
-//     &:nth-child(1){
-//         width: 100px;
-//         top: 50%;
-//         left: 30%;
-//         opacity: .2;
-//     }
-//     &:nth-child(2){
-//         width: 200px;
-//         top: 150%;
-//         left: 70%;
-//         opacity: .3;
-//     }
-//     &:nth-child(3){
-//         width: 100px;
-//         top: 200%;
-//         left: 10%;
-//         opacity: .4;
-//     }
-//     &:nth-child(4){
-//         width: 150px;
-//         top: 250%;
-//         left: 50%;
-//         opacity: .2;
-//     }
-// }
-
-
-.slick-slider{
-  width: 100vw;
-  margin-bottom: 3rem;
-  @media(min-width: $breakpoint-large){
-      width: auto;
+    @media(min-width: $breakpoint-large){
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      grid-gap: 2rem 4rem;
+    }
   }
 }
 
-.slide{
-    width: 80% !important;
-    max-width: 800px !important;
+.name {
+  margin: 0 auto;
+  font-size: 6vw;
+  display: flex;
+  justify-content: center;
+  color: $text-color;
+  @media (min-width: $breakpoint-medium) {
+    font-size: 4rem;
+  }
+  @media (min-width: $breakpoint-large) {
+    font-size: 3rem;
+  }
+}
+
+.is-selected {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: $breakpoint-large) {
+     display: block;
+
+    // position: absolute;
+    // width: 100%;
+    // top: 40%;
+    // left: 0%;
+
+  }
+}
+
+.story {
+  background-color: white;
+  border: 2px solid $text-color;
+  position: relative;
+  box-shadow: 5px 5px $ternary-color;
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  z-index: 1;
+  width: fit-content;
+  text-align: center;
+  @media(min-width: $breakpoint-large){
+    width: 50%;
+  }
+  @media (min-width: $story) {
+    margin: 1rem auto;
+    max-width: 800px;
+  }
+}
+
+.job {
+  position: relative;
+  top: 30px;
+  font-size: 1rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+  z-index: -1;
+  @include shadow-text(1px, 1px);
+}
+
+.hover-thumb {
+  position: absolute;
+  width: 30vw;
+  z-index: 2;
+  @media (min-width: 930px) {
+    width: 20vw;
+  }
+  @media (min-width: 1700px) {
+    width: 10vw;
+  }
+}
+
+.hide-thumb {
+  opacity: 0;
+}
+
+.slick-slider {
+  width: 100vw;
+  margin-bottom: 3rem;
+  @media (min-width: $breakpoint-large) {
+    width: auto;
+  }
+}
+
+.slide {
+  width: 80% !important;
+  max-width: 800px !important;
+  margin: 0 auto;
+  img {
+    width: 100%;
     margin: 0 auto;
-    img{
-        width: 100%;
-        margin: 0 auto;
-        @media(min-width: $breakpoint-medium){
-            width: 50%;
-        }
-        @media(min-width: $breakpoint-large){
-            width: 40%;
-        }
+    @media (min-width: $breakpoint-medium) {
+      width: 50%;
     }
+    @media (min-width: $breakpoint-large) {
+      width: 40%;
+    }
+  }
 }
 
-.slick-prev{
-    left: 1rem;
-    transform: scale(2);
-    z-index: 999;
-    &::before{
-        color: $secondary-color;
-    }
-     @media(min-width: $breakpoint-large){
-       left: 10rem; 
-    }
+.slick-prev {
+  left: 1rem;
+  transform: scale(2);
+  z-index: 999;
+  &::before {
+    color: $secondary-color;
+  }
+  @media (min-width: $breakpoint-large) {
+    left: 10rem;
+  }
 }
 
-.slick-next{
-    // background-color: red;
-    transform: scale(2);
-    right: 1rem;
-    &::before{
-        color: $secondary-color;
-    }
-    @media(min-width: $breakpoint-large){
-       right: 10rem; 
-    }
+.slick-next {
+  transform: scale(2);
+  right: 1rem;
+  &::before {
+    color: $secondary-color;
+  }
+  @media (min-width: $breakpoint-large) {
+    right: 10rem;
+  }
 }
 
 .v-lazy-image {
@@ -371,5 +419,4 @@ export default {
 .v-lazy-image-loaded {
   filter: blur(0);
 }
-
 </style>
