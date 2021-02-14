@@ -186,7 +186,14 @@ export default {
     },
     test: function(person){
       return person.name.split(" ").join("").toLowerCase();
-    }
+    },
+    // distortList: function(){
+    //   const li = document.querySelectorAll('.work-gallery--item');
+
+    //   for(let i=0;i<li.length;i++){
+
+    //   }
+    // }
   },
   mounted() {
     this.pushAnimation();
@@ -282,7 +289,7 @@ export default {
     @media(min-width: $breakpoint-large){
       display: grid;
       grid-template-columns: repeat(2,1fr);
-      grid-gap: 2rem 4rem;
+      grid-gap: 2rem 1rem;
       max-width: none;
     }
     &--item {
@@ -388,7 +395,7 @@ export default {
       width: 50%;
     }
     @media (min-width: $breakpoint-large) {
-      width: 40%;
+      width: 60%;
     }
   }
 }
