@@ -152,9 +152,11 @@ export default {
   mounted() { // STICKY HEADER 
     window.document.onscroll = () => {
       let navBar = document.getElementById("nav");
-      if (window.scrollY > navBar.offsetTop + 70) {
+      if (window.scrollY > navBar.offsetTop + 60) {
+        // navBar.style.top = '28px';
         this.active = true;
       } else {
+        // navBar.style.top = '0';
         this.active = false;
       }
     };
@@ -206,16 +208,13 @@ export default {
   @media (min-width: $breakpoint-medium) {
       margin: -30px auto 0;
     }
-  h1,
-  h2 {
-    @media (min-width: $breakpoint-large) {
-      font-size: 8rem;
-    }
-  }
 }
 h1,
 h2 {
   margin: 0.5rem 0;
+  @media (min-width: $breakpoint-large) {
+      font-size: 8rem;
+    }
 }
 h3 {
   margin: 2rem;
@@ -249,6 +248,9 @@ h3 {
   justify-content: flex-start;
   height: 60px;
   z-index: 999;
+  top: 0;
+  // padding: 1rem 0;
+  // margin-top: 1rem; // ZOU DIT WERKEN???
   @media screen and (min-width: $breakpoint-medium) {
     flex-direction: row;
     h2,

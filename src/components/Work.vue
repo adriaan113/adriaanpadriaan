@@ -170,11 +170,11 @@ export default {
       return top;
     },
     calculateLeft: function() {
-      const left = Math.floor(Math.random() * 100);
+      const left = Math.floor(Math.random() * 500);
       return left;
     },
     closeGalleryOnLoad: function() {
-      this.checkOpenLi();
+      this.checkOpenLi()
     },
     showStrangers: function(){
       this.sneakPeak=!this.sneakPeak;
@@ -207,38 +207,33 @@ export default {
 .work-container {
   height: 100%;
   flex: 1;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: flex-start;
   @media(min-width: $breakpoint-large){
     max-width: none;
   }
   aside{
-    // position: relative;
-    // left: -3rem;
-    // top: 1rem;
     position: absolute;
     left: 1rem;
     top: 6rem;
     background-color: $secondary-color;
-    // width: 50%;
-    // height: 50%;
     border-radius: 50%;
     transform: rotate(-10deg);
     cursor: pointer;
-    // max-width: 100px;
-    // max-height: 100px;
     width: 80px;
     height: 80px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    z-index: 997;
+    @media(min-width: $breakpoint-medium){
+      left: 4rem;
+      top: 12rem;
+    }
     @media(min-width: $breakpoint-large){
-      position: absolute;
       left: 9rem;
       top: 13rem;
       width: 100px;
+      height: 100px;
     }
     p{
       width: 50px;
@@ -262,7 +257,7 @@ export default {
       }
     } 
   }
-  .asideactive{
+  .asideactive{ //DEZE NAMEN MOETEN ECHT BETER. CAMELCASE KEBABCASE
       width: 100%;
       max-width: 250px;
       max-height: none;
