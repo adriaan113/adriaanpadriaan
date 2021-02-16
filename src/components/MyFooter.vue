@@ -17,7 +17,7 @@ footer {
   background-color: $text-color;
   margin-top: 30vh;
   margin-bottom: -1rem;
-  width: 110%;
+  width: 104%;
   padding: 1.5rem 0;
   @media (min-width: $breakpoint-medium) {
     margin-bottom: -3.2rem;

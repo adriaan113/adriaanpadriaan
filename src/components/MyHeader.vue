@@ -275,11 +275,11 @@ h3 {
   background-color: $sticky-header-color;
   position: fixed;
   justify-content: flex-start;
-  height: 60px;
+  height: 80px;
   z-index: 999;
   top: 0;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
+  // padding-bottom: 1rem;
+  // padding-top: 1rem;
   @media screen and (min-width: $breakpoint-medium) {
     flex-direction: row;
     h2,
@@ -300,7 +300,7 @@ h3 {
     transition: 0.3s;
     font-size: 1rem;
     margin-left: 1.5rem;
-    margin-top: 1rem;
+    margin-top: 0.4rem;
     color: white;
      @media (min-width: $breakpoint-medium) {
       margin: 0 1rem;
