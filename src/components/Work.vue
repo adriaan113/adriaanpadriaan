@@ -370,6 +370,10 @@ export default {
   text-transform: uppercase;
   z-index: -1;
   color: $text-color;
+  margin-bottom: 2rem;
+  @media(min-width: $breakpoint-medium){
+    margin-bottom: 1rem;
+  }
   // @include shadow-text(1px, 1px);
 }
 
