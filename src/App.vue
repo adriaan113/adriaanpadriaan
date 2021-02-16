@@ -112,7 +112,7 @@ body {
 }
 
 .bm-burger-button {
-  position: absolute;
+  position: fixed;
   width: 36px;
   height: 30px;
   //top: 10px;
@@ -120,7 +120,7 @@ body {
   //margin-top: 1rem;
   margin-bottom: 1rem;
   left: 90%;
-  top: 10px;
+  top: 25px;
   cursor: pointer;
   .bm-burger-bars {
     background-color: $text-color;
