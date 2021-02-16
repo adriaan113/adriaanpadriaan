@@ -152,7 +152,7 @@ export default {
   mounted() { // STICKY HEADER 
     window.document.onscroll = () => {
       let navBar = document.getElementById("nav");
-      if (window.scrollY > navBar.offsetTop + 60) {
+      if (window.scrollY > navBar.offsetTop + 100) {
         this.active = true;
       } else {
         this.active = false;
@@ -184,6 +184,14 @@ export default {
 <style lang="scss">
 @import "../global-scss/variables.scss";
 
+// @mixin logo-colors( $color){
+//   @for $i from 1 through 6{
+//     &:nth-child(#{$i}){
+//         color: $color;
+//     }
+//   }
+// }
+
 .header-container {
   display: flex;
   flex-flow: column nowrap;
@@ -203,11 +211,31 @@ export default {
   justify-content: center;
   color: $text-color;
   max-width: 600px;
+  span:nth-child(1){
+    color: #3f72af;
+  }
+  span:nth-child(2){
+    color: #AFA8BA;
+  }
+  span:nth-child(3){
+    color:#7B7485;
+  }
+  span:nth-child(4){
+    color: #D80000;
+  }
+   span:nth-child(5){
+    color: #FF0000;
+  }
+   span:nth-child(6){
+    color: #ccb974;
+  }
+  
   @media (min-width: $breakpoint-medium) {
       margin: -30px auto 0;
     }
   h1,
-  h2 {
+  h2 
+  {
     @media (min-width: $breakpoint-large) {
       font-size: 8rem;
     }
@@ -250,6 +278,7 @@ h3 {
   height: 60px;
   z-index: 999;
   top: 0;
+  padding-bottom: 1rem;
   // margin-top: 1rem; // ZOU DIT WERKEN???
   @media screen and (min-width: $breakpoint-medium) {
     flex-direction: row;
@@ -271,6 +300,7 @@ h3 {
     transition: 0.3s;
     font-size: 1rem;
     margin-left: 1.5rem;
+    margin-top: 1rem;
     color: white;
      @media (min-width: $breakpoint-medium) {
       margin: 0 1rem;

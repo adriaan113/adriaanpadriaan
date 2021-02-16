@@ -298,8 +298,8 @@ export default {
       margin: 0 auto;
       cursor: pointer;
       @media(min-width: $breakpoint-large){
-         max-width: 800px;
-         margin: unset;
+        max-width: 800px;
+        margin: unset;
       }
     }
   

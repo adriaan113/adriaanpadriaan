@@ -46,6 +46,7 @@ html {
 body {
   min-height: 100%;
   box-sizing: border-box;
+  background-color: $background-color;
 }
 
 #app {
@@ -113,7 +114,9 @@ body {
 .bm-burger-button {
   width: 36px;
   height: 30px;
+  //top: 10px;
   left: 16px;
+  margin-top: 1rem;
   top: 16px;
   cursor: pointer;
   .bm-burger-bars {
