@@ -120,7 +120,7 @@ body {
   //margin-top: 1rem;
   margin-bottom: 1rem;
   left: 90%;
-  top: 25px;
+  top: 25px !important;
   cursor: pointer;
   .bm-burger-bars {
     background-color: $text-color;
