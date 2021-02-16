@@ -279,7 +279,7 @@ h3 {
   z-index: 999;
   top: 0;
   padding-bottom: 1rem;
-  // margin-top: 1rem; // ZOU DIT WERKEN???
+  padding-top: 1rem;
   @media screen and (min-width: $breakpoint-medium) {
     flex-direction: row;
     h2,
