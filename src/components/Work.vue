@@ -4,7 +4,7 @@
       <p :class="{pactive: sneakPeak}">i also make this</p>
       <div class="sneak-peak" v-show="sneakPeak" :class="{divactive:sneakPeak}">
         <v-lazy-image :src="stranger"/>
-        <p class="see-more">I make sculptures. <a href="https://www.instagram.com/adriaanvanderploeg/" target="blank">
+        <p class="see-more">I also make sculptures. <a href="https://www.instagram.com/adriaanvanderploeg/" target="blank">
           <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="instagram" class="instagram" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 448 512"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>
         </a></p>
       </div>
@@ -93,7 +93,8 @@ export default {
         infinite: false,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        arrows: false,    
       },
       work: work.data,
       sneakPeak: false,
@@ -206,10 +207,10 @@ export default {
 <style lang="scss">
 @import "../global-scss/variables.scss";
 
-@mixin shadow-text($x, $y) {
-  color: #ff005d;
-  text-shadow: $x $y #ff005d;
-}
+// @mixin shadow-text($x, $y) {
+//   color: $color3;
+//   text-shadow: $x $y $color6;
+// }
 
 .work-container {
   height: 100%;
@@ -221,7 +222,7 @@ export default {
     position: absolute;
     left: 1rem;
     top: 6rem;
-    background-color: $secondary-color;
+    background-color: $ternary-color;
     border-radius: 50%;
     transform: rotate(-10deg);
     cursor: pointer;
@@ -246,6 +247,7 @@ export default {
       width: 50px;
       padding: 2rem .2rem;
       font-weight: bold;
+      color: $text-color;
     }
     .sneak-peak{
       display: flex;
@@ -257,6 +259,7 @@ export default {
         margin: 0;
         padding: .3rem;
         width: 100%;
+        font-size: .8rem;
         a{
           text-decoration: underline !important;
           color: black;
@@ -266,7 +269,7 @@ export default {
   }
   .asideactive{ //DEZE NAMEN MOETEN ECHT BETER. CAMELCASE KEBABCASE
       width: 100%;
-      max-width: 250px;
+      max-width: 200px;
       max-height: none;
       height: auto;
       padding: 2px;
@@ -311,6 +314,14 @@ export default {
   font-size: 6vw;
   display: flex;
   justify-content: center;
+
+  background-image: linear-gradient(1deg, #3f72af 51%, #AFA4BA 10%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+
+  background-color: $background-color;
   color: $text-color;
   @media (min-width: $breakpoint-medium) {
     font-size: 4rem;
@@ -341,6 +352,7 @@ export default {
   z-index: 1;
   width: fit-content;
   text-align: center;
+  color: $text-color;
   @media(min-width: $breakpoint-large){
     width: 50%;
   }
@@ -357,7 +369,8 @@ export default {
   font-weight: lighter;
   text-transform: uppercase;
   z-index: -1;
-  @include shadow-text(1px, 1px);
+  color: $text-color;
+  // @include shadow-text(1px, 1px);
 }
 
 .hover-thumb {
@@ -421,6 +434,19 @@ export default {
   @media (min-width: $breakpoint-large) {
     right: 10rem;
   }
+}
+
+.slick-dots li button:before{ 
+  color: $text-color;
+  font-size: 1.5rem;
+  margin-top: .5rem;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.slick-dots li.slick-active button:before{
+  color: $secondary-color;
+  opacity: 1;
 }
 
 .v-lazy-image {

@@ -24,7 +24,7 @@ footer {
   }
   small {
     display: block;
-    color: white;
+    color: $background-color;
   }
 }
 </style>

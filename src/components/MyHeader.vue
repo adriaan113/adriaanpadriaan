@@ -212,22 +212,22 @@ export default {
   color: $text-color;
   max-width: 600px;
   span:nth-child(1){
-    color: #3f72af;
+    color: $color1;
   }
   span:nth-child(2){
-    color: #AFA8BA;
+    color: $color2;
   }
   span:nth-child(3){
-    color:#7B7485;
+    color: $color3;
   }
   span:nth-child(4){
-    color: #D80000;
+    color: $color4;
   }
    span:nth-child(5){
-    color: #FF0000;
+    color: $color5;
   }
    span:nth-child(6){
-    color: #ccb974;
+    color: $color6;
   }
   
   @media (min-width: $breakpoint-medium) {
@@ -282,9 +282,11 @@ h3 {
   // padding-top: 1rem;
   @media screen and (min-width: $breakpoint-medium) {
     flex-direction: row;
-    h2,
+    .adriaan h2{
+      color: $color5;
+    }
     a {
-      color: white;
+      color: $background-color;
       .router-link-active {
         text-decoration: underline;
       }
@@ -301,7 +303,7 @@ h3 {
     font-size: 1rem;
     margin-left: 1.5rem;
     margin-top: 0.4rem;
-    color: white;
+    //color: white;
      @media (min-width: $breakpoint-medium) {
       margin: 0 1rem;
     }

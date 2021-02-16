@@ -1,11 +1,24 @@
-//***COLORS***//
 
-$text-color: #1212d4;
-$secondary-color: #ff005d;
-$ternary-color: greenyellow;
+//***HEADER COLORS***//
+$color1: #3f72af;
+$color2: #AFA8BA;
+$color3:#7B7485;
+$color4: #D80000;
+$color5: #FF0000;
+$color6: #ccb974;
+
+//***MAIN COLORS***//
+
+$text-color: #060f6d;
+// $secondary-color: #ff005d;
+$secondary-color: $color5;
+$ternary-color: $color6;
 $sticky-header-color: $text-color;
 $work-nav-btn: $text-color;
-$background-color: #f7f7f7;
+$background-color: #f9f9f9;
+
+
+
 
 //***MEDIA QUERIES***//
 $breakpoint-medium: 624px;
