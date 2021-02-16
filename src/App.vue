@@ -117,6 +117,7 @@ body {
   //top: 10px;
   left: 16px;
   //margin-top: 1rem;
+  margin-bottom: 1rem;
   top: 25%;
   cursor: pointer;
   .bm-burger-bars {
