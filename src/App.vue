@@ -86,7 +86,7 @@ body {
 /***********MOBILE MENU STYLES***********/
 
 .bm-menu {
-  background-color: #1212d4 !important;
+  background-color: $text-color !important;
 }
 
 .bm-item-list > * {
@@ -99,7 +99,7 @@ body {
 }
 
 .bm-cross {
-  background: white;
+  background: $background-color;
 }
 
 .bm-cross-button {
@@ -126,7 +126,7 @@ body {
 
 #home {
   a {
-    color: white;
+    color: $background-color;
   }
   .router-link-active {
     text-decoration: underline;

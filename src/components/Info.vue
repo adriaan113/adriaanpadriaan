@@ -2,9 +2,9 @@
   <div class="info" @mousemove="eyeMove">
     <div class="about-me">
       <h1>Adriaan van der Ploeg...</h1>
-      <p>is fotograaf en beeldredacteur bij de Volkskrant.</p>
-      <p>Maakt ook wel eens een sculptuur.</p>
-      <p>En is front-end enthousiasteling.</p>
+      <p>is a photographer and photo-editor at Dutch newspaper de Volkskrant.</p>
+      <p>is a front-end development enthusiast.</p>
+      <p>Sometimes makes a sculpture!</p>
 
       <div class="portrait">
         <img :src="portretNew" alt="portret van adriaan" class="face" />
@@ -116,8 +116,8 @@ export default {
     return {
       portret: require("../assets/adriaan-van-der-ploeg.jpg"),
       portretNew: require("../assets/adriaan-van-der-ploeg4.png"),
-      eyeLeft: require("../assets/eye-left2.png"),
-      eyeRight: require("../assets/eye-right2.png"),
+      eyeLeft: require("../assets/eye-left3.png"),
+      eyeRight: require("../assets/eye-right3.png"),
       tongueInOut: false
     };
   },
@@ -268,7 +268,7 @@ export default {
 
     .eyes {
       position: absolute;
-      top: 51%;
+      top: 52%;
       left: -8%;
       width: 100%;
     }

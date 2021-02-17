@@ -1,6 +1,16 @@
 <template>
   <div class="intro-container">
-    <h2>fotografeerde bijvoorbeeld...</h2>
+    <h2>made this...</h2>
+    <!-- <svg class="arrow" viewBox="0 0 60 294" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="red" stroke-width="6" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <path d="M34.742 3.219c-16.5 38.937-42.12 101.462-11.816 141.277 11.47 15.07 39.594-30.3 18.836-35.809-26.992-7.162-32.379 47.884-29.746 62.829 3.095 17.57 10.156 34.34 12.632 52.007 3.052 21.767 6.09 43.956 3.887 65.825-.52 5.153-6.573-8.05-9.262-12.477-5.546-9.134-10.26-18.747-15.39-28.121M27.512 290.402c15.113-9.902 23.05-21.022 29.226-38.867"/>
+      </g>
+    </svg> -->
+    <svg class="arrow" viewBox="0 0 68 157" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="red" stroke-width="7" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <path d="M25.008 4.242c6.634 151.572 30.22 185.828-20.934 102.012M34.867 152.734c20.236-33.589 10.356-15.758 29.313-53.672"/>
+      </g>
+    </svg>
     <ul id="intro-gal" class="intro-gallery">
       <li
         v-for="person in introWork"
@@ -55,7 +65,7 @@
 
     <div class="cta">
       <router-link to="work">
-        <h2>meer</h2>
+        <h2>see more work</h2>
       </router-link>
     </div>
   </div>
@@ -154,7 +164,7 @@ export default {
       }
     },
     calculateTop: function() { //IMAGE HOVER
-      const top = Math.floor(Math.random() * -300);
+      const top = Math.floor(Math.random() * 200);
       return top;
     },
     calculateLeft: function() { //IMAGE HOVER
@@ -176,10 +186,10 @@ export default {
 <style lang="scss" scoped>
 @import "../global-scss/variables.scss";
 
-@mixin shadow-text($x, $y) {
-  color: #ff005d;
-  text-shadow: $x $y #ff005d;
-}
+// @mixin shadow-text($x, $y) {
+//   color: #ff005d;
+//   text-shadow: $x $y #ff005d;
+// }
 
 h2 {
   color: $text-color;
@@ -190,6 +200,10 @@ h2 {
   @media (min-width: $breakpoint-medium) {
     margin-bottom: 60vh;
   }
+}
+
+.arrow{
+  height: 4rem;
 }
 
 .intro-gallery {
@@ -208,7 +222,7 @@ h2 {
         font-size: 2rem;
         font-weight: lighter;
         z-index: 0;
-        @include shadow-text(3px, 3px);
+        // @include shadow-text(3px, 3px);
       }
     }
   }
@@ -216,6 +230,13 @@ h2 {
 
 .name {
   cursor: pointer;
+  font-size: 15vw;
+  @media(min-width: $breakpoint-medium){
+    font-size: 10vw;
+  }
+  @media(min-width: $breakpoint-large){
+    font-size: 6rem;
+  }
 }
 
 .hover-img {
@@ -231,6 +252,7 @@ h2 {
 }
 
 .cta {
+  margin-top: 2rem;
   h2 {
     display: inline;
   }
